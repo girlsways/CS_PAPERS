@@ -8,3 +8,8 @@ graphql-core = "<3"
 graphql-relay = "<3"
 graphene-django = "<3"
 jwcrypto = "*"
+
+[dev-packages]
+django-cors-headers = "*"
+bump2version = "*"
+coverage = {extras = ["
