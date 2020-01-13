@@ -1,4 +1,10 @@
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
-name = "p
+name = "pypi"
+
+[packages]
+graphql-core = "<3"
+graphql-relay = "<3"
+graphene-django = "<3"
+jwcrypto = "*"
