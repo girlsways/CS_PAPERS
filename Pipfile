@@ -12,4 +12,7 @@ jwcrypto = "*"
 [dev-packages]
 django-cors-headers = "*"
 bump2version = "*"
-coverage = {extras = ["
+coverage = {extras = ["toml"], version = "*"}
+python-dotenv = "*"
+ipython = "*"
+factor
