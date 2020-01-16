@@ -15,4 +15,7 @@ bump2version = "*"
 coverage = {extras = ["toml"], version = "*"}
 python-dotenv = "*"
 ipython = "*"
-factor
+factory-boy = "*"
+sphinx-rtd-theme = "*"
+dj-database-url = "*"
+psyco
