@@ -18,4 +18,4 @@ ipython = "*"
 factory-boy = "*"
 sphinx-rtd-theme = "*"
 dj-database-url = "*"
-psyco
+psycopg2-binary = "*"
