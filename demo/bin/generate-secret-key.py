@@ -34,3 +34,7 @@ def main():
     with file_obj:
         file_obj.writelines([f"SECRET_KEY='{key}'"])
         print(f"Secret key written to {file_obj.name}")
+
+
+if __name__ == "__main__":
+    main()
