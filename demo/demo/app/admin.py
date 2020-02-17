@@ -6,4 +6,8 @@ from .models import User
 
 
 def _get_email_field():
-    return User.EMAIL_FI
+    return User.EMAIL_FIELD if User.EMAIL_FIELD != User.USERNAME_FIELD else None
+
+
+@admin.register(User)
+cla
