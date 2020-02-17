@@ -10,4 +10,6 @@ def _get_email_field():
 
 
 @admin.register(User)
-cla
+class UserAdmin(BaseUserAdmin):
+    fieldsets = (
+        (None, {"fields": (Us
