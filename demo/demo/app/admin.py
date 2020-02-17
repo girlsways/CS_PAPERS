@@ -12,4 +12,7 @@ def _get_email_field():
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {"fields": (Us
+        (None, {"fields": (User.USERNAME_FIELD, "password")}),
+        (
+            _("Personal info"),
+     
