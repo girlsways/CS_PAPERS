@@ -18,4 +18,5 @@ class UserAdmin(BaseUserAdmin):
             {
                 "fields": [
                     f
-        
+                    for f in ("first_name", "last_name", _get_email_field())
+           
