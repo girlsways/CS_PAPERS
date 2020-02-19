@@ -15,4 +15,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {"fields": (User.USERNAME_FIELD, "password")}),
         (
             _("Personal info"),
-     
+            {
+                "fields": [
+                    f
+        
