@@ -23,4 +23,7 @@ class UserAdmin(BaseUserAdmin):
                 ]
             },
         ),
-       
+        (
+            _("Permissions"),
+            {
+ 
