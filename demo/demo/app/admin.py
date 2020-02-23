@@ -26,4 +26,6 @@ class UserAdmin(BaseUserAdmin):
         (
             _("Permissions"),
             {
- 
+                "fields": (
+                    "is_active",
+                    "is_sta
