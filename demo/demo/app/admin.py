@@ -33,4 +33,6 @@ class UserAdmin(BaseUserAdmin):
                     "groups",
                     "user_permissions",
                 ),
-            
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "dat
