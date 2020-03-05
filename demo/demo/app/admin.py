@@ -42,4 +42,5 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fi
+                "fields": (User.USERNAME_FIELD, "password1", "password2"),
+            }
