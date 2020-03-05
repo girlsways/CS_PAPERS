@@ -39,4 +39,7 @@ class UserAdmin(BaseUserAdmin):
     )
     add_fieldsets = (
         (
-            N
+            None,
+            {
+                "classes": ("wide",),
+                "fi
