@@ -47,4 +47,6 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
     ordering = (User.USERNAME_FIELD,)
-    list_di
+    list_display = ("first_name", "last_name", "is_staff")
+
+    def get_list
