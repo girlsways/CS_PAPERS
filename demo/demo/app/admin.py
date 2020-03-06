@@ -43,4 +43,8 @@ class UserAdmin(BaseUserAdmin):
             {
                 "classes": ("wide",),
                 "fields": (User.USERNAME_FIELD, "password1", "password2"),
-            }
+            },
+        ),
+    )
+    ordering = (User.USERNAME_FIELD,)
+    list_di
