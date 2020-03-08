@@ -49,4 +49,5 @@ class UserAdmin(BaseUserAdmin):
     ordering = (User.USERNAME_FIELD,)
     list_display = ("first_name", "last_name", "is_staff")
 
-    def get_list
+    def get_list_display(self, request):
+        if User.USERNAME_FIELD == get
