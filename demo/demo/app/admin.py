@@ -50,4 +50,5 @@ class UserAdmin(BaseUserAdmin):
     list_display = ("first_name", "last_name", "is_staff")
 
     def get_list_display(self, request):
-        if User.USERNAME_FIELD == get
+        if User.USERNAME_FIELD == getattr(User, "EMAIL_FIELD", None):
+            return (User.USERNAME_FI
