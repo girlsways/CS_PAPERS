@@ -58,4 +58,6 @@ class UserAdmin(BaseUserAdmin):
     def has_change_permission(self, request, obj=None):
         if not request.user.is_superuser:
             if request.user.pk != getattr(obj, "pk", None):
-              
+                return False
+
+        return True
