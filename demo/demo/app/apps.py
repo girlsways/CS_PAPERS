@@ -1,1 +1,6 @@
-from django.apps import AppCo
+from django.apps import AppConfig
+
+
+class DemoAppConfig(AppConfig):
+    name = "demo.app"
+    
