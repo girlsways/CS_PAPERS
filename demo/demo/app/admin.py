@@ -55,4 +55,5 @@ class UserAdmin(BaseUserAdmin):
         else:
             return (User.USERNAME_FIELD, User.EMAIL_FIELD) + self.list_display
 
-    def has_change_permissio
+    def has_change_permission(self, request, obj=None):
+        if not request.user.is_su
