@@ -53,4 +53,6 @@ class UserAdmin(BaseUserAdmin):
         if User.USERNAME_FIELD == getattr(User, "EMAIL_FIELD", None):
             return (User.USERNAME_FIELD,) + self.list_display
         else:
-            return (User.USERNAM
+            return (User.USERNAME_FIELD, User.EMAIL_FIELD) + self.list_display
+
+    def has_change_permissio
