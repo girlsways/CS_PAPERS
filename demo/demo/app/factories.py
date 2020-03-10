@@ -12,4 +12,5 @@ class UserFactory(DjangoModelFactory):
     password = Faker("password", length=20)
     first_name = Faker("first_name")
     last_name = Faker("last_name")
-    em
+    email = LazyAttribute(
+        lambda o: f"{o.first_name.lower(
