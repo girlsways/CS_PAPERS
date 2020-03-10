@@ -18,4 +18,5 @@ class UserFactory(DjangoModelFactory):
     )
 
     @classmethod
-    d
+    def _create(cls, model_class, *args, **kwargs):
+        man
