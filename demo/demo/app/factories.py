@@ -10,4 +10,6 @@ class UserFactory(DjangoModelFactory):
         model = User
 
     password = Faker("password", length=20)
-    
+    first_name = Faker("first_name")
+    last_name = Faker("last_name")
+    em
