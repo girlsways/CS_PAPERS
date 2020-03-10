@@ -7,4 +7,7 @@ from .models import User
 
 class UserFactory(DjangoModelFactory):
     class Meta:
-        model = U
+        model = User
+
+    password = Faker("password", length=20)
+    
