@@ -19,4 +19,5 @@ class UserFactory(DjangoModelFactory):
 
     @classmethod
     def _create(cls, model_class, *args, **kwargs):
-        man
+        manager = cls._get_manager(model_class)
+        return manager.cre
