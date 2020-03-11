@@ -24,4 +24,7 @@ class UserFactory(DjangoModelFactory):
 
 
 class JwtRefreshTokenFactory(DjangoModelFactory):
-    cl
+    class Meta:
+        model = JwtRefreshToken
+
+    user = SubFactory(U
