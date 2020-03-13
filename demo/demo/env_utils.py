@@ -8,4 +8,8 @@ def get_list(name, separator=":") -> t.List[str]:
 
 
 def yesno(name, default: str = "no") -> bool:
-    return os.getenv(name, default).lower() in [
+    return os.getenv(name, default).lower() in ["yes", "1", "true"]
+
+
+def get(name, default: str = "") -> str:
+    return
