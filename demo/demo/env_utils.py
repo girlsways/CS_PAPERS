@@ -4,4 +4,7 @@ from pathlib import Path
 
 
 def get_list(name, separator=":") -> t.List[str]:
-    retu
+    return os.getenv(name, "").split(separator)
+
+
+def yesno(name, default
