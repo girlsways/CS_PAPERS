@@ -12,4 +12,7 @@ def yesno(name, default: str = "no") -> bool:
 
 
 def get(name, default: str = "") -> str:
-    return
+    return os.getenv(name, default)
+
+
+def get_path(name, must_exist=False, absolute=T
