@@ -26,4 +26,5 @@ def get_path(name, must_exist=False, absolute=True) -> t.Optional[Path]:
     return None
 
 
-def get_directory(name,
+def get_directory(name, must_exist=False, absolute=True) -> t.Optional[str]:
+    directory =
