@@ -15,4 +15,6 @@ def get(name, default: str = "") -> str:
     return os.getenv(name, default)
 
 
-def get_path(name, must_exist=False, absolute=T
+def get_path(name, must_exist=False, absolute=True) -> t.Optional[Path]:
+    path_name = os.getenv(name, "")
+    if 
