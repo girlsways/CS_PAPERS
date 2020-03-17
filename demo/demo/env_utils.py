@@ -31,4 +31,5 @@ def get_directory(name, must_exist=False, absolute=True) -> t.Optional[str]:
     if directory:
         if not os.path.exists(directory) and must_exist:
             return None
-        return os.path.abspath(direc
+        return os.path.abspath(directory) if absolute else directory
+    return None
