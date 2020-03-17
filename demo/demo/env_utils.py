@@ -27,4 +27,6 @@ def get_path(name, must_exist=False, absolute=True) -> t.Optional[Path]:
 
 
 def get_directory(name, must_exist=False, absolute=True) -> t.Optional[str]:
-    directory =
+    directory = os.getenv(name, "")
+    if directory:
+        if not os.path.exists(directory
