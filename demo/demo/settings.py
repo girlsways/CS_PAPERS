@@ -12,3 +12,78 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+
+import dj_database_url
+
+from . import env_utils
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Core settings
+DEBUG = env_utils.yesno("DEBUG")
+APPEND_SLASH = False
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "var" / "mail"
+AUTH_USER_MODEL = "app.User"
+# Security
+SECRET_KEY = env_utils.get("SECRET_KEY")
+ALLOWED_HOSTS = env_utils.get_list("ALLOWED_HOSTS")
+CORS_ALLOWED_ORIGINS = env_utils.get_list("CORS_ALLOWED_ORIGINS", separator="|")
+CORS_ALLOW_METHODS = ["OPTIONS", "GET", "POST"]
+CORS_PREFLIGHT_MAX_AGE = 8 * 3600
+
+# Application definition
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "graphene_django",
+    "django_graphql_jwt_flow.apps.DjangoGraphqlJwtFlowConfig",
+    "demo.app.apps.DemoAppConfig",
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "demo.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "templates",
+        ],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
+]
+
+WSGI_APPLICATION = "demo.wsgi.application"
+
+
+# Database
+# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+if env_utils.get("DATABASE_URL"):
+    config = dj_database_url.config(
+        conn_max_age=600, ssl_require=env_utils.yesno("SSL_REQUIRE")
+    )
+    DATABASES = {
+        "default": config,
