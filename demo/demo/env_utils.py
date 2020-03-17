@@ -22,4 +22,8 @@ def get_path(name, must_exist=False, absolute=True) -> t.Optional[Path]:
         if must_exist and not path.exists():
             return None
 
-        return 
+        return path.resolve() if absolute else path
+    return None
+
+
+def get_directory(name,
