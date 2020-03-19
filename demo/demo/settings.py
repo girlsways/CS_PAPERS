@@ -87,3 +87,60 @@ if env_utils.get("DATABASE_URL"):
     )
     DATABASES = {
         "default": config,
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "dev.sqlite3",
+        }
+    }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": dict(min_length=20),
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]
+
+
+# Internationalization
+# https://docs.djangoproject.com/en/3.1/topics/i18n/
+LANGUAGE_CODE = "en"
+TIME_ZONE = "UTC"
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+STATIC_URL = "/static/"
+STATIC_ROOT = env_utils.get_directory("STATIC_ROOT")
+import os
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# GraphQL / Graphene / Graphene-Django
+GRAPHENE = {"SCHEMA_OUTPUT": "schema.grapql", "SCHEMA": "demo.schema.schema"}
+JWT_FLOW = {
+    "KEY": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "Lc5eoWH8FRE2L8CHlBDHTyd_o26DOi4PpPwbnM4QGBI",
+        "d": "2vs4Y76RdPDatIdOsTALoMa7_99xbbnmUTpz974O2oo",
+    },
+    "REFRESH_DAYS": 7,
+    "SIGNATURE_ALG": "EdDSA",
+    "TIME_WITH_MICROSECONDS": False,
+}
