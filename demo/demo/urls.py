@@ -19,4 +19,7 @@ from django.urls import path
 from django.views import static
 from django.views.decorators.csrf import csrf_exempt
 
-from django_
+from django_graphql_jwt_flow.views import GraphQLView
+
+urlpatterns = [
+  
