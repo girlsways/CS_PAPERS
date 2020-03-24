@@ -25,4 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
     path(
-        "mail<p
+        "mail<path:path>",
+        static.serve,
+        {
+            "document_root": sett
