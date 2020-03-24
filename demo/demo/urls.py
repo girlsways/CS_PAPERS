@@ -23,4 +23,6 @@ from django_graphql_jwt_flow.views import GraphQLView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("graphql", csrf_
+    path("graphql", csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
+    path(
+        "mail<p
