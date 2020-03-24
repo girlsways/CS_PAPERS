@@ -30,4 +30,8 @@ urlpatterns = [
         {
             "document_root": settings.BASE_DIR / "var" / "mail",
             "show_indexes": True,
-       
+        },
+    ),
+    path(
+        "coverage<path:path>",
+        static.
