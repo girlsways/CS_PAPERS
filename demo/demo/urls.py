@@ -28,4 +28,6 @@ urlpatterns = [
         "mail<path:path>",
         static.serve,
         {
-            "document_root": sett
+            "document_root": settings.BASE_DIR / "var" / "mail",
+            "show_indexes": True,
+       
