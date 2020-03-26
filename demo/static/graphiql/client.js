@@ -226,3 +226,72 @@ var SubscriptionClient = (function () {
     SubscriptionClient.prototype.close = function (isForced, closedByUser) {
         if (isForced === void 0) { isForced = true; }
         if (closedByUser === void 0) { closedByUser = true; }
+        this.clearInactivityTimeout();
+        if (this.client !== null) {
+            this.closedByUser = closedByUser;
+            if (isForced) {
+                this.clearCheckConnectionInterval();
+                this.clearMaxConnectTimeout();
+                this.clearTryReconnectTimeout();
+                this.unsubscribeAll();
+                this.sendMessage(undefined, message_types_1.default.GQL_CONNECTION_TERMINATE, null);
+            }
+            this.client.close();
+            this.client = null;
+            this.eventEmitter.emit('disconnected');
+            if (!isForced) {
+                this.tryReconnect();
+            }
+        }
+    };
+    SubscriptionClient.prototype.request = function (request) {
+        var _a;
+        var getObserver = this.getObserver.bind(this);
+        var executeOperation = this.executeOperation.bind(this);
+        var unsubscribe = this.unsubscribe.bind(this);
+        var opId;
+        this.clearInactivityTimeout();
+        return _a = {},
+            _a[symbol_observable_1.default] = function () {
+                return this;
+            },
+            _a.subscribe = function (observerOrNext, onError, onComplete) {
+                var observer = getObserver(observerOrNext, onError, onComplete);
+                opId = executeOperation(request, function (error, result) {
+                    if (error === null && result === null) {
+                        if (observer.complete) {
+                            observer.complete();
+                        }
+                    }
+                    else if (error) {
+                        if (observer.error) {
+                            observer.error(error[0]);
+                        }
+                    }
+                    else {
+                        if (observer.next) {
+                            observer.next(result);
+                        }
+                    }
+                });
+                return {
+                    unsubscribe: function () {
+                        if (opId) {
+                            unsubscribe(opId);
+                            opId = null;
+                        }
+                    },
+                };
+            },
+            _a;
+    };
+    SubscriptionClient.prototype.on = function (eventName, callback, context) {
+        var handler = this.eventEmitter.on(eventName, callback, context);
+        return function () {
+            handler.off(eventName, callback, context);
+        };
+    };
+    SubscriptionClient.prototype.onConnected = function (callback, context) {
+        return this.on('connected', callback, context);
+    };
+    SubscriptionClient.prototype.onConnecting = function (callback, context) {
