@@ -295,3 +295,73 @@ var SubscriptionClient = (function () {
         return this.on('connected', callback, context);
     };
     SubscriptionClient.prototype.onConnecting = function (callback, context) {
+        return this.on('connecting', callback, context);
+    };
+    SubscriptionClient.prototype.onDisconnected = function (callback, context) {
+        return this.on('disconnected', callback, context);
+    };
+    SubscriptionClient.prototype.onReconnected = function (callback, context) {
+        return this.on('reconnected', callback, context);
+    };
+    SubscriptionClient.prototype.onReconnecting = function (callback, context) {
+        return this.on('reconnecting', callback, context);
+    };
+    SubscriptionClient.prototype.onError = function (callback, context) {
+        return this.on('error', callback, context);
+    };
+    SubscriptionClient.prototype.unsubscribeAll = function () {
+        var _this = this;
+        Object.keys(this.operations).forEach(function (subId) {
+            _this.unsubscribe(subId);
+        });
+    };
+    SubscriptionClient.prototype.applyMiddlewares = function (options) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var queue = function (funcs, scope) {
+                var next = function (error) {
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        if (funcs.length > 0) {
+                            var f = funcs.shift();
+                            if (f) {
+                                f.applyMiddleware.apply(scope, [options, next]);
+                            }
+                        }
+                        else {
+                            resolve(options);
+                        }
+                    }
+                };
+                next();
+            };
+            queue(__spreadArrays(_this.middlewares), _this);
+        });
+    };
+    SubscriptionClient.prototype.use = function (middlewares) {
+        var _this = this;
+        middlewares.map(function (middleware) {
+            if (typeof middleware.applyMiddleware === 'function') {
+                _this.middlewares.push(middleware);
+            }
+            else {
+                throw new Error('Middleware must implement the applyMiddleware function.');
+            }
+        });
+        return this;
+    };
+    SubscriptionClient.prototype.getConnectionParams = function (connectionParams) {
+        return function () { return new Promise(function (resolve, reject) {
+            if (typeof connectionParams === 'function') {
+                try {
+                    return resolve(connectionParams.call(null));
+                }
+                catch (error) {
+                    return reject(error);
+                }
+            }
+            resolve(connectionParams);
+        }); };
+    };
