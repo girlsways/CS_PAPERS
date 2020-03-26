@@ -160,3 +160,69 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             op = body.call(thisArg, _);
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubscriptionClient = void 0;
+var _global = typeof global !== 'undefined' ? global : (typeof window !== 'undefined' ? window : {});
+var NativeWebSocket = _global.WebSocket || _global.MozWebSocket;
+var Backoff = __webpack_require__(3);
+var eventemitter3_1 = __webpack_require__(4);
+var is_string_1 = __webpack_require__(5);
+var is_object_1 = __webpack_require__(6);
+var printer_1 = __webpack_require__(7);
+var getOperationAST_1 = __webpack_require__(14);
+var symbol_observable_1 = __webpack_require__(16);
+var protocol_1 = __webpack_require__(19);
+var defaults_1 = __webpack_require__(20);
+var message_types_1 = __webpack_require__(21);
+var SubscriptionClient = (function () {
+    function SubscriptionClient(url, options, webSocketImpl, webSocketProtocols) {
+        var _a = (options || {}), _b = _a.connectionCallback, connectionCallback = _b === void 0 ? undefined : _b, _c = _a.connectionParams, connectionParams = _c === void 0 ? {} : _c, _d = _a.timeout, timeout = _d === void 0 ? defaults_1.WS_TIMEOUT : _d, _e = _a.reconnect, reconnect = _e === void 0 ? false : _e, _f = _a.reconnectionAttempts, reconnectionAttempts = _f === void 0 ? Infinity : _f, _g = _a.lazy, lazy = _g === void 0 ? false : _g, _h = _a.inactivityTimeout, inactivityTimeout = _h === void 0 ? 0 : _h;
+        this.wsImpl = webSocketImpl || NativeWebSocket;
+        if (!this.wsImpl) {
+            throw new Error('Unable to find native implementation, or alternative implementation for WebSocket!');
+        }
+        this.wsProtocols = webSocketProtocols || protocol_1.GRAPHQL_WS;
+        this.connectionCallback = connectionCallback;
+        this.url = url;
+        this.operations = {};
+        this.nextOperationId = 0;
+        this.wsTimeout = timeout;
+        this.unsentMessagesQueue = [];
+        this.reconnect = reconnect;
+        this.reconnecting = false;
+        this.reconnectionAttempts = reconnectionAttempts;
+        this.lazy = !!lazy;
+        this.inactivityTimeout = inactivityTimeout;
+        this.closedByUser = false;
+        this.backoff = new Backoff({ jitter: 0.5 });
+        this.eventEmitter = new eventemitter3_1.EventEmitter();
+        this.middlewares = [];
+        this.client = null;
+        this.maxConnectTimeGenerator = this.createMaxConnectTimeGenerator();
+        this.connectionParams = this.getConnectionParams(connectionParams);
+        if (!this.lazy) {
+            this.connect();
+        }
+    }
+    Object.defineProperty(SubscriptionClient.prototype, "status", {
+        get: function () {
+            if (this.client === null) {
+                return this.wsImpl.CLOSED;
+            }
+            return this.client.readyState;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    SubscriptionClient.prototype.close = function (isForced, closedByUser) {
+        if (isForced === void 0) { isForced = true; }
+        if (closedByUser === void 0) { closedByUser = true; }
