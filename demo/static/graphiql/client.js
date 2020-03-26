@@ -508,3 +508,79 @@ var SubscriptionClient = (function () {
         return String(++this.nextOperationId);
     };
     SubscriptionClient.prototype.tryReconnect = function () {
+        var _this = this;
+        if (!this.reconnect || this.backoff.attempts >= this.reconnectionAttempts) {
+            return;
+        }
+        if (!this.reconnecting) {
+            Object.keys(this.operations).forEach(function (key) {
+                _this.unsentMessagesQueue.push(_this.buildMessage(key, message_types_1.default.GQL_START, _this.operations[key].options));
+            });
+            this.reconnecting = true;
+        }
+        this.clearTryReconnectTimeout();
+        var delay = this.backoff.duration();
+        this.tryReconnectTimeoutId = setTimeout(function () {
+            _this.connect();
+        }, delay);
+    };
+    SubscriptionClient.prototype.flushUnsentMessagesQueue = function () {
+        var _this = this;
+        this.unsentMessagesQueue.forEach(function (message) {
+            _this.sendMessageRaw(message);
+        });
+        this.unsentMessagesQueue = [];
+    };
+    SubscriptionClient.prototype.checkConnection = function () {
+        if (this.wasKeepAliveReceived) {
+            this.wasKeepAliveReceived = false;
+            return;
+        }
+        if (!this.reconnecting) {
+            this.close(false, true);
+        }
+    };
+    SubscriptionClient.prototype.checkMaxConnectTimeout = function () {
+        var _this = this;
+        this.clearMaxConnectTimeout();
+        this.maxConnectTimeoutId = setTimeout(function () {
+            if (_this.status !== _this.wsImpl.OPEN) {
+                _this.reconnecting = true;
+                _this.close(false, true);
+            }
+        }, this.maxConnectTimeGenerator.duration());
+    };
+    SubscriptionClient.prototype.connect = function () {
+        var _this = this;
+        this.client = new this.wsImpl(this.url, this.wsProtocols);
+        this.checkMaxConnectTimeout();
+        this.client.onopen = function () { return __awaiter(_this, void 0, void 0, function () {
+            var connectionParams, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(this.status === this.wsImpl.OPEN)) return [3, 4];
+                        this.clearMaxConnectTimeout();
+                        this.closedByUser = false;
+                        this.eventEmitter.emit(this.reconnecting ? 'reconnecting' : 'connecting');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4, this.connectionParams()];
+                    case 2:
+                        connectionParams = _a.sent();
+                        this.sendMessage(undefined, message_types_1.default.GQL_CONNECTION_INIT, connectionParams);
+                        this.flushUnsentMessagesQueue();
+                        return [3, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        this.sendMessage(undefined, message_types_1.default.GQL_CONNECTION_ERROR, error_1);
+                        this.flushUnsentMessagesQueue();
+                        return [3, 4];
+                    case 4: return [2];
+                }
+            });
+        }); };
+        this.client.onclose = function () {
+            if (!_this.closedByUser) {
+                _this.close(false, false);
