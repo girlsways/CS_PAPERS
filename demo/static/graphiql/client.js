@@ -365,3 +365,71 @@ var SubscriptionClient = (function () {
             resolve(connectionParams);
         }); };
     };
+    SubscriptionClient.prototype.executeOperation = function (options, handler) {
+        var _this = this;
+        if (this.client === null) {
+            this.connect();
+        }
+        var opId = this.generateOperationId();
+        this.operations[opId] = { options: options, handler: handler };
+        this.applyMiddlewares(options)
+            .then(function (processedOptions) {
+            _this.checkOperationOptions(processedOptions, handler);
+            if (_this.operations[opId]) {
+                _this.operations[opId] = { options: processedOptions, handler: handler };
+                _this.sendMessage(opId, message_types_1.default.GQL_START, processedOptions);
+            }
+        })
+            .catch(function (error) {
+            _this.unsubscribe(opId);
+            handler(_this.formatErrors(error));
+        });
+        return opId;
+    };
+    SubscriptionClient.prototype.getObserver = function (observerOrNext, error, complete) {
+        if (typeof observerOrNext === 'function') {
+            return {
+                next: function (v) { return observerOrNext(v); },
+                error: function (e) { return error && error(e); },
+                complete: function () { return complete && complete(); },
+            };
+        }
+        return observerOrNext;
+    };
+    SubscriptionClient.prototype.createMaxConnectTimeGenerator = function () {
+        var minValue = 1000;
+        var maxValue = this.wsTimeout;
+        return new Backoff({
+            min: minValue,
+            max: maxValue,
+            factor: 1.2,
+        });
+    };
+    SubscriptionClient.prototype.clearCheckConnectionInterval = function () {
+        if (this.checkConnectionIntervalId) {
+            clearInterval(this.checkConnectionIntervalId);
+            this.checkConnectionIntervalId = null;
+        }
+    };
+    SubscriptionClient.prototype.clearMaxConnectTimeout = function () {
+        if (this.maxConnectTimeoutId) {
+            clearTimeout(this.maxConnectTimeoutId);
+            this.maxConnectTimeoutId = null;
+        }
+    };
+    SubscriptionClient.prototype.clearTryReconnectTimeout = function () {
+        if (this.tryReconnectTimeoutId) {
+            clearTimeout(this.tryReconnectTimeoutId);
+            this.tryReconnectTimeoutId = null;
+        }
+    };
+    SubscriptionClient.prototype.clearInactivityTimeout = function () {
+        if (this.inactivityTimeoutId) {
+            clearTimeout(this.inactivityTimeoutId);
+            this.inactivityTimeoutId = null;
+        }
+    };
+    SubscriptionClient.prototype.setInactivityTimeout = function () {
+        var _this = this;
+        if (this.inactivityTimeout > 0 && Object.keys(this.operations).length === 0) {
+            this.inactivityTimeoutId = setTimeout(function () {
