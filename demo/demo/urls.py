@@ -36,4 +36,8 @@ urlpatterns = [
         "coverage<path:path>",
         static.serve,
         {
-            "document_root": settings.BASE_DIR / "var" / "tmp"
+            "document_root": settings.BASE_DIR / "var" / "tmp" / "coverage",
+            "show_indexes": True,
+        },
+    ),
+]
