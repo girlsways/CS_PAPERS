@@ -433,3 +433,78 @@ var SubscriptionClient = (function () {
         var _this = this;
         if (this.inactivityTimeout > 0 && Object.keys(this.operations).length === 0) {
             this.inactivityTimeoutId = setTimeout(function () {
+                if (Object.keys(_this.operations).length === 0) {
+                    _this.close();
+                }
+            }, this.inactivityTimeout);
+        }
+    };
+    SubscriptionClient.prototype.checkOperationOptions = function (options, handler) {
+        var query = options.query, variables = options.variables, operationName = options.operationName;
+        if (!query) {
+            throw new Error('Must provide a query.');
+        }
+        if (!handler) {
+            throw new Error('Must provide an handler.');
+        }
+        if ((!is_string_1.default(query) && !getOperationAST_1.getOperationAST(query, operationName)) ||
+            (operationName && !is_string_1.default(operationName)) ||
+            (variables && !is_object_1.default(variables))) {
+            throw new Error('Incorrect option types. query must be a string or a document,' +
+                '`operationName` must be a string, and `variables` must be an object.');
+        }
+    };
+    SubscriptionClient.prototype.buildMessage = function (id, type, payload) {
+        var payloadToReturn = payload && payload.query ? __assign(__assign({}, payload), { query: typeof payload.query === 'string' ? payload.query : printer_1.print(payload.query) }) :
+            payload;
+        return {
+            id: id,
+            type: type,
+            payload: payloadToReturn,
+        };
+    };
+    SubscriptionClient.prototype.formatErrors = function (errors) {
+        if (Array.isArray(errors)) {
+            return errors;
+        }
+        if (errors && errors.errors) {
+            return this.formatErrors(errors.errors);
+        }
+        if (errors && errors.message) {
+            return [errors];
+        }
+        return [{
+                name: 'FormatedError',
+                message: 'Unknown error',
+                originalError: errors,
+            }];
+    };
+    SubscriptionClient.prototype.sendMessage = function (id, type, payload) {
+        this.sendMessageRaw(this.buildMessage(id, type, payload));
+    };
+    SubscriptionClient.prototype.sendMessageRaw = function (message) {
+        switch (this.status) {
+            case this.wsImpl.OPEN:
+                var serializedMessage = JSON.stringify(message);
+                try {
+                    JSON.parse(serializedMessage);
+                }
+                catch (e) {
+                    this.eventEmitter.emit('error', new Error("Message must be JSON-serializable. Got: " + message));
+                }
+                this.client.send(serializedMessage);
+                break;
+            case this.wsImpl.CONNECTING:
+                this.unsentMessagesQueue.push(message);
+                break;
+            default:
+                if (!this.reconnecting) {
+                    this.eventEmitter.emit('error', new Error('A message was not sent because socket is not connected, is closing or ' +
+                        'is already closed. Message was: ' + JSON.stringify(message)));
+                }
+        }
+    };
+    SubscriptionClient.prototype.generateOperationId = function () {
+        return String(++this.nextOperationId);
+    };
+    SubscriptionClient.prototype.tryReconnect = function () {
