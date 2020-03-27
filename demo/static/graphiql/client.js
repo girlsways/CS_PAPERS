@@ -584,3 +584,86 @@ var SubscriptionClient = (function () {
         this.client.onclose = function () {
             if (!_this.closedByUser) {
                 _this.close(false, false);
+            }
+        };
+        this.client.onerror = function (err) {
+            _this.eventEmitter.emit('error', err);
+        };
+        this.client.onmessage = function (_a) {
+            var data = _a.data;
+            _this.processReceivedData(data);
+        };
+    };
+    SubscriptionClient.prototype.processReceivedData = function (receivedData) {
+        var parsedMessage;
+        var opId;
+        try {
+            parsedMessage = JSON.parse(receivedData);
+            opId = parsedMessage.id;
+        }
+        catch (e) {
+            throw new Error("Message must be JSON-parseable. Got: " + receivedData);
+        }
+        if ([message_types_1.default.GQL_DATA,
+            message_types_1.default.GQL_COMPLETE,
+            message_types_1.default.GQL_ERROR,
+        ].indexOf(parsedMessage.type) !== -1 && !this.operations[opId]) {
+            this.unsubscribe(opId);
+            return;
+        }
+        switch (parsedMessage.type) {
+            case message_types_1.default.GQL_CONNECTION_ERROR:
+                if (this.connectionCallback) {
+                    this.connectionCallback(parsedMessage.payload);
+                }
+                break;
+            case message_types_1.default.GQL_CONNECTION_ACK:
+                this.eventEmitter.emit(this.reconnecting ? 'reconnected' : 'connected');
+                this.reconnecting = false;
+                this.backoff.reset();
+                this.maxConnectTimeGenerator.reset();
+                if (this.connectionCallback) {
+                    this.connectionCallback();
+                }
+                break;
+            case message_types_1.default.GQL_COMPLETE:
+                this.operations[opId].handler(null, null);
+                delete this.operations[opId];
+                break;
+            case message_types_1.default.GQL_ERROR:
+                this.operations[opId].handler(this.formatErrors(parsedMessage.payload), null);
+                delete this.operations[opId];
+                break;
+            case message_types_1.default.GQL_DATA:
+                var parsedPayload = !parsedMessage.payload.errors ?
+                    parsedMessage.payload : __assign(__assign({}, parsedMessage.payload), { errors: this.formatErrors(parsedMessage.payload.errors) });
+                this.operations[opId].handler(null, parsedPayload);
+                break;
+            case message_types_1.default.GQL_CONNECTION_KEEP_ALIVE:
+                var firstKA = typeof this.wasKeepAliveReceived === 'undefined';
+                this.wasKeepAliveReceived = true;
+                if (firstKA) {
+                    this.checkConnection();
+                }
+                if (this.checkConnectionIntervalId) {
+                    clearInterval(this.checkConnectionIntervalId);
+                    this.checkConnection();
+                }
+                this.checkConnectionIntervalId = setInterval(this.checkConnection.bind(this), this.wsTimeout);
+                break;
+            default:
+                throw new Error('Invalid message type!');
+        }
+    };
+    SubscriptionClient.prototype.unsubscribe = function (opId) {
+        if (this.operations[opId]) {
+            delete this.operations[opId];
+            this.setInactivityTimeout();
+            this.sendMessage(opId, message_types_1.default.GQL_STOP, undefined);
+        }
+    };
+    return SubscriptionClient;
+}());
+exports.SubscriptionClient = SubscriptionClient;
+//# sourceMappingURL=client.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
