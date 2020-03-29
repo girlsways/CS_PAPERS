@@ -1451,3 +1451,96 @@ function hasMultilineItems(maybeArray) {
 
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.visit = visit;
+exports.visitInParallel = visitInParallel;
+exports.getVisitFn = getVisitFn;
+exports.BREAK = exports.QueryDocumentKeys = void 0;
+
+var _inspect = _interopRequireDefault(__webpack_require__(9));
+
+var _ast = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var QueryDocumentKeys = {
+  Name: [],
+  Document: ['definitions'],
+  OperationDefinition: ['name', 'variableDefinitions', 'directives', 'selectionSet'],
+  VariableDefinition: ['variable', 'type', 'defaultValue', 'directives'],
+  Variable: ['name'],
+  SelectionSet: ['selections'],
+  Field: ['alias', 'name', 'arguments', 'directives', 'selectionSet'],
+  Argument: ['name', 'value'],
+  FragmentSpread: ['name', 'directives'],
+  InlineFragment: ['typeCondition', 'directives', 'selectionSet'],
+  FragmentDefinition: ['name', // Note: fragment variable definitions are experimental and may be changed
+  // or removed in the future.
+  'variableDefinitions', 'typeCondition', 'directives', 'selectionSet'],
+  IntValue: [],
+  FloatValue: [],
+  StringValue: [],
+  BooleanValue: [],
+  NullValue: [],
+  EnumValue: [],
+  ListValue: ['values'],
+  ObjectValue: ['fields'],
+  ObjectField: ['name', 'value'],
+  Directive: ['name', 'arguments'],
+  NamedType: ['name'],
+  ListType: ['type'],
+  NonNullType: ['type'],
+  SchemaDefinition: ['description', 'directives', 'operationTypes'],
+  OperationTypeDefinition: ['type'],
+  ScalarTypeDefinition: ['description', 'name', 'directives'],
+  ObjectTypeDefinition: ['description', 'name', 'interfaces', 'directives', 'fields'],
+  FieldDefinition: ['description', 'name', 'arguments', 'type', 'directives'],
+  InputValueDefinition: ['description', 'name', 'type', 'defaultValue', 'directives'],
+  InterfaceTypeDefinition: ['description', 'name', 'interfaces', 'directives', 'fields'],
+  UnionTypeDefinition: ['description', 'name', 'directives', 'types'],
+  EnumTypeDefinition: ['description', 'name', 'directives', 'values'],
+  EnumValueDefinition: ['description', 'name', 'directives'],
+  InputObjectTypeDefinition: ['description', 'name', 'directives', 'fields'],
+  DirectiveDefinition: ['description', 'name', 'arguments', 'locations'],
+  SchemaExtension: ['directives', 'operationTypes'],
+  ScalarTypeExtension: ['name', 'directives'],
+  ObjectTypeExtension: ['name', 'interfaces', 'directives', 'fields'],
+  InterfaceTypeExtension: ['name', 'interfaces', 'directives', 'fields'],
+  UnionTypeExtension: ['name', 'directives', 'types'],
+  EnumTypeExtension: ['name', 'directives', 'values'],
+  InputObjectTypeExtension: ['name', 'directives', 'fields']
+};
+exports.QueryDocumentKeys = QueryDocumentKeys;
+var BREAK = Object.freeze({});
+/**
+ * visit() will walk through an AST using a depth-first traversal, calling
+ * the visitor's enter function at each node in the traversal, and calling the
+ * leave function after visiting that node and all of its child nodes.
+ *
+ * By returning different values from the enter and leave functions, the
+ * behavior of the visitor can be altered, including skipping over a sub-tree of
+ * the AST (by returning false), editing the AST by returning a value or null
+ * to remove the value, or to stop the whole traversal by returning BREAK.
+ *
+ * When using visit() to edit an AST, the original AST will not be modified, and
+ * a new version of the AST with the changes applied will be returned from the
+ * visit function.
+ *
+ *     const editedAST = visit(ast, {
+ *       enter(node, key, parent, path, ancestors) {
+ *         // @return
+ *         //   undefined: no action
+ *         //   false: skip visiting this node
+ *         //   visitor.BREAK: stop visiting altogether
+ *         //   null: delete this node
+ *         //   any value: replace this node with the returned value
+ *       },
+ *       leave(node, key, parent, path, ancestors) {
