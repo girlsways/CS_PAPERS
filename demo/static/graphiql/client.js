@@ -1768,3 +1768,66 @@ function visit(root, visitor) {
 
 function visitInParallel(visitors) {
   var skipping = new Array(visitors.length);
+  return {
+    enter: function enter(node) {
+      for (var i = 0; i < visitors.length; i++) {
+        if (skipping[i] == null) {
+          var fn = getVisitFn(visitors[i], node.kind,
+          /* isLeaving */
+          false);
+
+          if (fn) {
+            var result = fn.apply(visitors[i], arguments);
+
+            if (result === false) {
+              skipping[i] = node;
+            } else if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined) {
+              return result;
+            }
+          }
+        }
+      }
+    },
+    leave: function leave(node) {
+      for (var i = 0; i < visitors.length; i++) {
+        if (skipping[i] == null) {
+          var fn = getVisitFn(visitors[i], node.kind,
+          /* isLeaving */
+          true);
+
+          if (fn) {
+            var result = fn.apply(visitors[i], arguments);
+
+            if (result === BREAK) {
+              skipping[i] = BREAK;
+            } else if (result !== undefined && result !== false) {
+              return result;
+            }
+          }
+        } else if (skipping[i] === node) {
+          skipping[i] = null;
+        }
+      }
+    }
+  };
+}
+/**
+ * Given a visitor instance, if it is leaving or not, and a node kind, return
+ * the function the visitor runtime should call.
+ */
+
+
+function getVisitFn(visitor, kind, isLeaving) {
+  var kindVisitor = visitor[kind];
+
+  if (kindVisitor) {
+    if (!isLeaving && typeof kindVisitor === 'function') {
+      // { Kind() {} }
+      return kindVisitor;
+    }
+
+    var kindSpecificVisitor = isLeaving ? kindVisitor.leave : kindVisitor.enter;
+
+    if (typeof kindSpecificVisitor === 'function') {
