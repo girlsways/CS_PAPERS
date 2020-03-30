@@ -1901,3 +1901,74 @@ function formatValue(value, seenValues) {
       return String(value);
   }
 }
+
+function formatObjectValue(value, previouslySeenValues) {
+  if (previouslySeenValues.indexOf(value) !== -1) {
+    return '[Circular]';
+  }
+
+  var seenValues = [].concat(previouslySeenValues, [value]);
+  var customInspectFn = getCustomFn(value);
+
+  if (customInspectFn !== undefined) {
+    // $FlowFixMe(>=0.90.0)
+    var customValue = customInspectFn.call(value); // check for infinite recursion
+
+    if (customValue !== value) {
+      return typeof customValue === 'string' ? customValue : formatValue(customValue, seenValues);
+    }
+  } else if (Array.isArray(value)) {
+    return formatArray(value, seenValues);
+  }
+
+  return formatObject(value, seenValues);
+}
+
+function formatObject(object, seenValues) {
+  var keys = Object.keys(object);
+
+  if (keys.length === 0) {
+    return '{}';
+  }
+
+  if (seenValues.length > MAX_RECURSIVE_DEPTH) {
+    return '[' + getObjectTag(object) + ']';
+  }
+
+  var properties = keys.map(function (key) {
+    var value = formatValue(object[key], seenValues);
+    return key + ': ' + value;
+  });
+  return '{ ' + properties.join(', ') + ' }';
+}
+
+function formatArray(array, seenValues) {
+  if (array.length === 0) {
+    return '[]';
+  }
+
+  if (seenValues.length > MAX_RECURSIVE_DEPTH) {
+    return '[Array]';
+  }
+
+  var len = Math.min(MAX_ARRAY_LENGTH, array.length);
+  var remaining = array.length - len;
+  var items = [];
+
+  for (var i = 0; i < len; ++i) {
+    items.push(formatValue(array[i], seenValues));
+  }
+
+  if (remaining === 1) {
+    items.push('... 1 more item');
+  } else if (remaining > 1) {
+    items.push("... ".concat(remaining, " more items"));
+  }
+
+  return '[' + items.join(', ') + ']';
+}
+
+function getCustomFn(object) {
+  var customInspectFn = object[String(_nodejsCustomInspectSymbol.default)];
+
+  if (typeof customInspectFn === 'function') {
