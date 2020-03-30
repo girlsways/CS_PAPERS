@@ -1831,3 +1831,73 @@ function getVisitFn(visitor, kind, isLeaving) {
     var kindSpecificVisitor = isLeaving ? kindVisitor.leave : kindVisitor.enter;
 
     if (typeof kindSpecificVisitor === 'function') {
+      // { Kind: { enter() {}, leave() {} } }
+      return kindSpecificVisitor;
+    }
+  } else {
+    var specificVisitor = isLeaving ? visitor.leave : visitor.enter;
+
+    if (specificVisitor) {
+      if (typeof specificVisitor === 'function') {
+        // { enter() {}, leave() {} }
+        return specificVisitor;
+      }
+
+      var specificKindVisitor = specificVisitor[kind];
+
+      if (typeof specificKindVisitor === 'function') {
+        // { enter: { Kind() {} }, leave: { Kind() {} } }
+        return specificKindVisitor;
+      }
+    }
+  }
+}
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = inspect;
+
+var _nodejsCustomInspectSymbol = _interopRequireDefault(__webpack_require__(1));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var MAX_ARRAY_LENGTH = 10;
+var MAX_RECURSIVE_DEPTH = 2;
+/**
+ * Used to print values in error messages.
+ */
+
+function inspect(value) {
+  return formatValue(value, []);
+}
+
+function formatValue(value, seenValues) {
+  switch (_typeof(value)) {
+    case 'string':
+      return JSON.stringify(value);
+
+    case 'function':
+      return value.name ? "[function ".concat(value.name, "]") : '[function]';
+
+    case 'object':
+      if (value === null) {
+        return 'null';
+      }
+
+      return formatObjectValue(value, seenValues);
+
+    default:
+      return String(value);
+  }
+}
