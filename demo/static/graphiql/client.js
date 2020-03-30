@@ -1972,3 +1972,67 @@ function getCustomFn(object) {
   var customInspectFn = object[String(_nodejsCustomInspectSymbol.default)];
 
   if (typeof customInspectFn === 'function') {
+    return customInspectFn;
+  }
+
+  if (typeof object.inspect === 'function') {
+    return object.inspect;
+  }
+}
+
+function getObjectTag(object) {
+  var tag = Object.prototype.toString.call(object).replace(/^\[object /, '').replace(/]$/, '');
+
+  if (tag === 'Object' && typeof object.constructor === 'function') {
+    var name = object.constructor.name;
+
+    if (typeof name === 'string' && name !== '') {
+      return name;
+    }
+  }
+
+  return tag;
+}
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isNode = isNode;
+exports.Token = exports.Location = void 0;
+
+var _defineInspect = _interopRequireDefault(__webpack_require__(11));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * Contains a range of UTF-8 character offsets and token references that
+ * identify the region of the source from which the AST derived.
+ */
+var Location = /*#__PURE__*/function () {
+  /**
+   * The character offset at which this Node begins.
+   */
+
+  /**
+   * The character offset at which this Node ends.
+   */
+
+  /**
+   * The Token at which this Node begins.
+   */
+
+  /**
+   * The Token at which this Node ends.
+   */
+
+  /**
+   * The Source document the AST represents.
+   */
