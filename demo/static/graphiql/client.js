@@ -1611,3 +1611,80 @@ exports.BREAK = BREAK;
 
 function visit(root, visitor) {
   var visitorKeys = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : QueryDocumentKeys;
+
+  /* eslint-disable no-undef-init */
+  var stack = undefined;
+  var inArray = Array.isArray(root);
+  var keys = [root];
+  var index = -1;
+  var edits = [];
+  var node = undefined;
+  var key = undefined;
+  var parent = undefined;
+  var path = [];
+  var ancestors = [];
+  var newRoot = root;
+  /* eslint-enable no-undef-init */
+
+  do {
+    index++;
+    var isLeaving = index === keys.length;
+    var isEdited = isLeaving && edits.length !== 0;
+
+    if (isLeaving) {
+      key = ancestors.length === 0 ? undefined : path[path.length - 1];
+      node = parent;
+      parent = ancestors.pop();
+
+      if (isEdited) {
+        if (inArray) {
+          node = node.slice();
+        } else {
+          var clone = {};
+
+          for (var _i2 = 0, _Object$keys2 = Object.keys(node); _i2 < _Object$keys2.length; _i2++) {
+            var k = _Object$keys2[_i2];
+            clone[k] = node[k];
+          }
+
+          node = clone;
+        }
+
+        var editOffset = 0;
+
+        for (var ii = 0; ii < edits.length; ii++) {
+          var editKey = edits[ii][0];
+          var editValue = edits[ii][1];
+
+          if (inArray) {
+            editKey -= editOffset;
+          }
+
+          if (inArray && editValue === null) {
+            node.splice(editKey, 1);
+            editOffset++;
+          } else {
+            node[editKey] = editValue;
+          }
+        }
+      }
+
+      index = stack.index;
+      keys = stack.keys;
+      edits = stack.edits;
+      inArray = stack.inArray;
+      stack = stack.prev;
+    } else {
+      key = parent ? inArray ? index : keys[index] : undefined;
+      node = parent ? parent[key] : newRoot;
+
+      if (node === null || node === undefined) {
+        continue;
+      }
+
+      if (parent) {
+        path.push(key);
+      }
+    }
+
+    var result = void 0;
