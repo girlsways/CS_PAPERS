@@ -2291,3 +2291,59 @@ function printBlockString(value) {
   var hasTrailingQuote = value[value.length - 1] === '"';
   var hasTrailingSlash = value[value.length - 1] === '\\';
   var printAsMultipleLines = !isSingleLine || hasTrailingQuote || hasTrailingSlash || preferMultipleLines;
+  var result = ''; // Format a multi-line block quote to account for leading space.
+
+  if (printAsMultipleLines && !(isSingleLine && hasLeadingSpace)) {
+    result += '\n' + indentation;
+  }
+
+  result += indentation ? value.replace(/\n/g, '\n' + indentation) : value;
+
+  if (printAsMultipleLines) {
+    result += '\n';
+  }
+
+  return '"""' + result.replace(/"""/g, '\\"""') + '"""';
+}
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getOperationAST = getOperationAST;
+
+var _kinds = __webpack_require__(15);
+
+/**
+ * Returns an operation AST given a document AST and optionally an operation
+ * name. If a name is not provided, an operation is only returned if only one is
+ * provided in the document.
+ */
+function getOperationAST(documentAST, operationName) {
+  var operation = null;
+
+  for (var _i2 = 0, _documentAST$definiti2 = documentAST.definitions; _i2 < _documentAST$definiti2.length; _i2++) {
+    var definition = _documentAST$definiti2[_i2];
+
+    if (definition.kind === _kinds.Kind.OPERATION_DEFINITION) {
+      var _definition$name;
+
+      if (operationName == null) {
+        // If no operation name was provided, only return an Operation if there
+        // is one defined in the document. Upon encountering the second, return
+        // null.
+        if (operation) {
+          return null;
+        }
+
+        operation = definition;
+      } else if (((_definition$name = definition.name) === null || _definition$name === void 0 ? void 0 : _definition$name.value) === operationName) {
+        return definition;
+      }
