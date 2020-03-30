@@ -2123,3 +2123,85 @@ var Token = /*#__PURE__*/function () {
 exports.Token = Token;
 (0, _defineInspect.default)(Token);
 /**
+ * @internal
+ */
+
+function isNode(maybeNode) {
+  return maybeNode != null && typeof maybeNode.kind === 'string';
+}
+/**
+ * The list of all possible AST node types.
+ */
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = defineInspect;
+
+var _invariant = _interopRequireDefault(__webpack_require__(12));
+
+var _nodejsCustomInspectSymbol = _interopRequireDefault(__webpack_require__(1));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * The `defineInspect()` function defines `inspect()` prototype method as alias of `toJSON`
+ */
+function defineInspect(classObject) {
+  var fn = classObject.prototype.toJSON;
+  typeof fn === 'function' || (0, _invariant.default)(0);
+  classObject.prototype.inspect = fn; // istanbul ignore else (See: 'https://github.com/graphql/graphql-js/issues/2317')
+
+  if (_nodejsCustomInspectSymbol.default) {
+    classObject.prototype[_nodejsCustomInspectSymbol.default] = fn;
+  }
+}
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = invariant;
+
+function invariant(condition, message) {
+  var booleanCondition = Boolean(condition); // istanbul ignore else (See transformation done in './resources/inlineInvariant.js')
+
+  if (!booleanCondition) {
+    throw new Error(message != null ? message : 'Unexpected invariant triggered.');
+  }
+}
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.dedentBlockStringValue = dedentBlockStringValue;
+exports.getBlockStringIndentation = getBlockStringIndentation;
+exports.printBlockString = printBlockString;
+
+/**
+ * Produces the value of a block string from its parsed raw value, similar to
+ * CoffeeScript's block string, Python's docstring trim or Ruby's strip_heredoc.
+ *
