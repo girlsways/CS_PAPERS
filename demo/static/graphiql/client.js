@@ -2419,3 +2419,69 @@ var Kind = Object.freeze({
   SCHEMA_EXTENSION: 'SchemaExtension',
   // Type Extensions
   SCALAR_TYPE_EXTENSION: 'ScalarTypeExtension',
+  OBJECT_TYPE_EXTENSION: 'ObjectTypeExtension',
+  INTERFACE_TYPE_EXTENSION: 'InterfaceTypeExtension',
+  UNION_TYPE_EXTENSION: 'UnionTypeExtension',
+  ENUM_TYPE_EXTENSION: 'EnumTypeExtension',
+  INPUT_OBJECT_TYPE_EXTENSION: 'InputObjectTypeExtension'
+});
+/**
+ * The enum type representing the possible kind values of AST nodes.
+ */
+
+exports.Kind = Kind;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ponyfill_js__ = __webpack_require__(18);
+/* global window */
+
+
+var root;
+
+if (typeof self !== 'undefined') {
+  root = self;
+} else if (typeof window !== 'undefined') {
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else if (true) {
+  root = module;
+} else {
+  root = Function('return this')();
+}
+
+var result = Object(__WEBPACK_IMPORTED_MODULE_0__ponyfill_js__["a" /* default */])(root);
+/* harmony default export */ __webpack_exports__["default"] = (result);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0), __webpack_require__(17)(module)))
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+module.exports = function(originalModule) {
+	if(!originalModule.webpackPolyfill) {
+		var module = Object.create(originalModule);
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		Object.defineProperty(module, "exports", {
+			enumerable: true,
+		});
