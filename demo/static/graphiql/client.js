@@ -2485,3 +2485,81 @@ module.exports = function(originalModule) {
 		Object.defineProperty(module, "exports", {
 			enumerable: true,
 		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = symbolObservablePonyfill;
+function symbolObservablePonyfill(root) {
+	var result;
+	var Symbol = root.Symbol;
+
+	if (typeof Symbol === 'function') {
+		if (Symbol.observable) {
+			result = Symbol.observable;
+		} else {
+			result = Symbol('observable');
+			Symbol.observable = result;
+		}
+	} else {
+		result = '@@observable';
+	}
+
+	return result;
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GRAPHQL_SUBSCRIPTIONS = exports.GRAPHQL_WS = void 0;
+var GRAPHQL_WS = 'graphql-ws';
+exports.GRAPHQL_WS = GRAPHQL_WS;
+var GRAPHQL_SUBSCRIPTIONS = 'graphql-subscriptions';
+exports.GRAPHQL_SUBSCRIPTIONS = GRAPHQL_SUBSCRIPTIONS;
+//# sourceMappingURL=protocol.js.map
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.WS_TIMEOUT = void 0;
+var WS_TIMEOUT = 30000;
+exports.WS_TIMEOUT = WS_TIMEOUT;
+//# sourceMappingURL=defaults.js.map
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var MessageTypes = (function () {
+    function MessageTypes() {
+        throw new Error('Static Class');
+    }
+    MessageTypes.GQL_CONNECTION_INIT = 'connection_init';
+    MessageTypes.GQL_CONNECTION_ACK = 'connection_ack';
+    MessageTypes.GQL_CONNECTION_ERROR = 'connection_error';
+    MessageTypes.GQL_CONNECTION_KEEP_ALIVE = 'ka';
+    MessageTypes.GQL_CONNECTION_TERMINATE = 'connection_terminate';
+    MessageTypes.GQL_START = 'start';
+    MessageTypes.GQL_DATA = 'data';
+    MessageTypes.GQL_ERROR = 'error';
+    MessageTypes.GQL_COMPLETE = 'complete';
+    MessageTypes.GQL_STOP = 'stop';
