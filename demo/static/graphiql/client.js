@@ -2563,3 +2563,19 @@ var MessageTypes = (function () {
     MessageTypes.GQL_ERROR = 'error';
     MessageTypes.GQL_COMPLETE = 'complete';
     MessageTypes.GQL_STOP = 'stop';
+    MessageTypes.SUBSCRIPTION_START = 'subscription_start';
+    MessageTypes.SUBSCRIPTION_DATA = 'subscription_data';
+    MessageTypes.SUBSCRIPTION_SUCCESS = 'subscription_success';
+    MessageTypes.SUBSCRIPTION_FAIL = 'subscription_fail';
+    MessageTypes.SUBSCRIPTION_END = 'subscription_end';
+    MessageTypes.INIT = 'init';
+    MessageTypes.INIT_SUCCESS = 'init_success';
+    MessageTypes.INIT_FAIL = 'init_fail';
+    MessageTypes.KEEP_ALIVE = 'keepalive';
+    return MessageTypes;
+}());
+exports.default = MessageTypes;
+//# sourceMappingURL=message-types.js.map
+
+/***/ })
+/******/ ]);
