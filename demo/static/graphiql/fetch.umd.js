@@ -476,3 +476,61 @@
 
   function fetch(input, init) {
     return new Promise(function(resolve, reject) {
+      var request = new Request(input, init);
+
+      if (request.signal && request.signal.aborted) {
+        return reject(new exports.DOMException('Aborted', 'AbortError'))
+      }
+
+      var xhr = new XMLHttpRequest();
+
+      function abortXhr() {
+        xhr.abort();
+      }
+
+      xhr.onload = function() {
+        var options = {
+          status: xhr.status,
+          statusText: xhr.statusText,
+          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+        };
+        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
+        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+        setTimeout(function() {
+          resolve(new Response(body, options));
+        }, 0);
+      };
+
+      xhr.onerror = function() {
+        setTimeout(function() {
+          reject(new TypeError('Network request failed'));
+        }, 0);
+      };
+
+      xhr.ontimeout = function() {
+        setTimeout(function() {
+          reject(new TypeError('Network request failed'));
+        }, 0);
+      };
+
+      xhr.onabort = function() {
+        setTimeout(function() {
+          reject(new exports.DOMException('Aborted', 'AbortError'));
+        }, 0);
+      };
+
+      function fixUrl(url) {
+        try {
+          return url === '' && global.location.href ? global.location.href : url
+        } catch (e) {
+          return url
+        }
+      }
+
+      xhr.open(request.method, fixUrl(request.url), true);
+
+      if (request.credentials === 'include') {
+        xhr.withCredentials = true;
+      } else if (request.credentials === 'omit') {
+        xhr.withCredentials = false;
+      }
