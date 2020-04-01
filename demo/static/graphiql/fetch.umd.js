@@ -534,3 +534,52 @@
       } else if (request.credentials === 'omit') {
         xhr.withCredentials = false;
       }
+
+      if ('responseType' in xhr) {
+        if (support.blob) {
+          xhr.responseType = 'blob';
+        } else if (
+          support.arrayBuffer &&
+          request.headers.get('Content-Type') &&
+          request.headers.get('Content-Type').indexOf('application/octet-stream') !== -1
+        ) {
+          xhr.responseType = 'arraybuffer';
+        }
+      }
+
+      request.headers.forEach(function(value, name) {
+        xhr.setRequestHeader(name, value);
+      });
+
+      if (request.signal) {
+        request.signal.addEventListener('abort', abortXhr);
+
+        xhr.onreadystatechange = function() {
+          // DONE (success or failure)
+          if (xhr.readyState === 4) {
+            request.signal.removeEventListener('abort', abortXhr);
+          }
+        };
+      }
+
+      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
+    })
+  }
+
+  fetch.polyfill = true;
+
+  if (!global.fetch) {
+    global.fetch = fetch;
+    global.Headers = Headers;
+    global.Request = Request;
+    global.Response = Response;
+  }
+
+  exports.Headers = Headers;
+  exports.Request = Request;
+  exports.Response = Response;
+  exports.fetch = fetch;
+
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
