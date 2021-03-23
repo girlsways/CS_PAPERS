@@ -8,4 +8,8 @@ add "&raw" to the end of the URL within a browser.
 {% load static i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang=
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <style>
+      html, body, #editor {
+          heig
