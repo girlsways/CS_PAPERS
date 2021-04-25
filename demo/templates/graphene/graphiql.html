@@ -32,4 +32,6 @@ add "&raw" to the end of the URL within a browser.
 <script type="application/javascript">
     window.GRAPHENE_SETTINGS = {
         {% if subscription_path %}
-            subscriptionPath: "{{subs
+            subscriptionPath: "{{subscription_path}}",
+        {% endif %}
+        graphiqlHeaderEditorEnabled:
