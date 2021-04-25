@@ -34,4 +34,6 @@ add "&raw" to the end of the URL within a browser.
         {% if subscription_path %}
             subscriptionPath: "{{subscription_path}}",
         {% endif %}
-        graphiqlHeaderEditorEnabled:
+        graphiqlHeaderEditorEnabled: {{ graphiql_header_editor_enabled|yesno:"true,false" }},
+    };
+</sc
