@@ -31,4 +31,5 @@ add "&raw" to the end of the URL within a browser.
 {% csrf_token %}
 <script type="application/javascript">
     window.GRAPHENE_SETTINGS = {
-     
+        {% if subscription_path %}
+            subscriptionPath: "{{subs
