@@ -2,4 +2,7 @@
 #
 
 # You can set these variables from the command line, and also
-# from the environmen
+# from the environment for the first two.
+SPHINXOPTS    ?=
+SPHINXBUILD   ?= sphinx-build
+SOURCEDIR  
