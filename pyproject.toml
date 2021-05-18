@@ -18,3 +18,17 @@ exclude = '''
 )
 '''
 [tool.coverage.run]
+data_file = "demo/var/tmp/.coverage"
+source = [
+    "src",
+]
+
+[tool.coverage.report]
+precision = 1
+skip_covered = true
+skip_empty = true
+
+[tool.coverage.html]
+directory = "demo/var/tmp/coverage"
+skip_covered = true
+skip_empty = true
