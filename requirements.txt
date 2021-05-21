@@ -1,3 +1,7 @@
 dj-database-url
 django-cors-headers
-factory-bo
+factory-boy
+graphene-django
+jwcrypto
+python-dotenv
+sphinx-rtd-theme
