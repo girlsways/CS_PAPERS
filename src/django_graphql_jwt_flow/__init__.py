@@ -5,4 +5,6 @@ __VERSION__ = "0.0.0"
 
 
 def get_version():
-    def
+    defaults = (0, 0, 0)
+    actual = __VERSION__.split(".", 2)
+    parts = 
