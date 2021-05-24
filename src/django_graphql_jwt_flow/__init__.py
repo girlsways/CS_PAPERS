@@ -8,4 +8,9 @@ def get_version():
     defaults = (0, 0, 0)
     actual = __VERSION__.split(".", 2)
     parts = [
-        actual[i] if i < len(actual) else defaults[i] for i 
+        actual[i] if i < len(actual) else defaults[i] for i in range(0, len(defaults))
+    ]
+    return semantic(*parts)
+
+
+version = get_v
