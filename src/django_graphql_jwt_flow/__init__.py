@@ -13,4 +13,4 @@ def get_version():
     return semantic(*parts)
 
 
-version = get_v
+version = get_version()
