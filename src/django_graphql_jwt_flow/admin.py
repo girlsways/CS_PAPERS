@@ -12,4 +12,6 @@ from django_graphql_jwt_flow.apps import app_settings
 from . import models, forms
 
 if t.TYPE_CHECKING:
-    from django.db.models.query import Que
+    from django.db.models.query import QuerySet
+    from django.http import HttpRequest
+    from django
