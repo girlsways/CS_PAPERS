@@ -9,4 +9,7 @@ from django.utils.translation import gettext_lazy as _, ngettext
 from jwcrypto.common import json_decode
 
 from django_graphql_jwt_flow.apps import app_settings
-from . import models, f
+from . import models, forms
+
+if t.TYPE_CHECKING:
+    from django.db.models.query import Que
