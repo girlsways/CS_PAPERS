@@ -14,4 +14,7 @@ from . import models, forms
 if t.TYPE_CHECKING:
     from django.db.models.query import QuerySet
     from django.http import HttpRequest
-    from django
+    from django.contrib.auth.base_user import AbstractBaseUser
+
+    class _TokenQuerySet(QuerySet):
+    
