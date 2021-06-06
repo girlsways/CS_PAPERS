@@ -17,4 +17,6 @@ if t.TYPE_CHECKING:
     from django.contrib.auth.base_user import AbstractBaseUser
 
     class _TokenQuerySet(QuerySet):
-    
+        def iterator(
+            self, chunk_size: int = 2000
+        
