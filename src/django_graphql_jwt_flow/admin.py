@@ -19,4 +19,7 @@ if t.TYPE_CHECKING:
     class _TokenQuerySet(QuerySet):
         def iterator(
             self, chunk_size: int = 2000
-        
+        ) -> t.Iterator[models.JwtRefreshToken]:
+            ...
+
+    TokenQue
