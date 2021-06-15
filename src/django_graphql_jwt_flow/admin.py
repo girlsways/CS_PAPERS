@@ -22,4 +22,4 @@ if t.TYPE_CHECKING:
         ) -> t.Iterator[models.JwtRefreshToken]:
             ...
 
-    TokenQue
+    TokenQuerySet = t.Union[t.Sequence[models.JwtRefreshToken], _TokenQuery
