@@ -22,4 +22,7 @@ if t.TYPE_CHECKING:
         ) -> t.Iterator[models.JwtRefreshToken]:
             ...
 
-    TokenQuerySet = t.Union[t.Sequence[models.JwtRefreshToken], _TokenQuery
+    TokenQuerySet = t.Union[t.Sequence[models.JwtRefreshToken], _TokenQuerySet]
+
+    class AuthenticatedRequest(HttpRequest):
+        user: Abstr
