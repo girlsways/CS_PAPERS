@@ -25,4 +25,8 @@ if t.TYPE_CHECKING:
     TokenQuerySet = t.Union[t.Sequence[models.JwtRefreshToken], _TokenQuerySet]
 
     class AuthenticatedRequest(HttpRequest):
-        user: Abstr
+        user: AbstractBaseUser = ...
+
+
+@admin.register(models.JwtRefreshToken)
+class Jwt
