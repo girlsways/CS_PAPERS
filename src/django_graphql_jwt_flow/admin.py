@@ -30,4 +30,5 @@ if t.TYPE_CHECKING:
 
 @admin.register(models.JwtRefreshToken)
 class JwtRefreshTokenAdmin(admin.ModelAdmin):
-    search_fields = ["use
+    search_fields = ["user__email", "user__first_name", "user__last_name"]
+    list_display = ["
