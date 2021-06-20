@@ -29,4 +29,5 @@ if t.TYPE_CHECKING:
 
 
 @admin.register(models.JwtRefreshToken)
-class Jwt
+class JwtRefreshTokenAdmin(admin.ModelAdmin):
+    search_fields = ["use
