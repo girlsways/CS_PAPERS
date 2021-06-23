@@ -32,4 +32,7 @@ if t.TYPE_CHECKING:
 class JwtRefreshTokenAdmin(admin.ModelAdmin):
     search_fields = ["user__email", "user__first_name", "user__last_name"]
     list_display = ["user_email", "token_payload", "is_expired"]
-    add_form = forms.Crea
+    add_form = forms.CreateTokenForm
+    actions = ["refresh_token_action"]
+
+    def user_ema
