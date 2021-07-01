@@ -35,4 +35,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     add_form = forms.CreateTokenForm
     actions = ["refresh_token_action"]
 
-    def user_ema
+    def user_email(self, obj: models.JwtRefreshToken) -> str:
+        return obj.u
