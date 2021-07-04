@@ -41,4 +41,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     user_email.short_description = _("Email")
 
     def token_payload(self, obj: models.JwtRefreshToken) -> str:
-        heade
+        header, payload, sig = obj.token.split(".")
+        return urlsafe_base64_dec
