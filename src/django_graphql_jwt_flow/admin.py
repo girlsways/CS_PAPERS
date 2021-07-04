@@ -42,4 +42,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
 
     def token_payload(self, obj: models.JwtRefreshToken) -> str:
         header, payload, sig = obj.token.split(".")
-        return urlsafe_base64_dec
+        return urlsafe_base64_decode(payload).decode()
+
+    token_payload.short_description = _("Payload")
+
