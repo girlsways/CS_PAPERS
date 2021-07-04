@@ -36,4 +36,8 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     actions = ["refresh_token_action"]
 
     def user_email(self, obj: models.JwtRefreshToken) -> str:
-        return obj.u
+        return obj.user.email
+
+    user_email.short_description = _("Email")
+
+    def toke
