@@ -40,4 +40,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
 
     user_email.short_description = _("Email")
 
-    def toke
+    def token_payload(self, obj: models.JwtRefreshToken) -> str:
+        heade
