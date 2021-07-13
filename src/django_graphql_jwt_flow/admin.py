@@ -48,4 +48,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
 
     def is_expired(self, obj: models.JwtRefreshToken) -> bool:
         now = datetime.utcnow().timestamp()
-        token_payload = json_decode
+        token_payload = json_decode(self.token_payload(obj))
+        return now > token_payload["ex
