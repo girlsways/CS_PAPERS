@@ -52,4 +52,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         return now > token_payload["exp"]
 
     is_expired.boolean = True
-    is_expired.short_description = _("E
+    is_expired.short_description = _("Expired?")
+
+    def get_form(self, request, obj=None, **kwargs):
+     
