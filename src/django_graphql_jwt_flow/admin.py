@@ -55,4 +55,6 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     is_expired.short_description = _("Expired?")
 
     def get_form(self, request, obj=None, **kwargs):
-     
+        defaults = {}
+        if obj is None:
+            defaults["form"] = self.
