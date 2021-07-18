@@ -59,4 +59,6 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         if obj is None:
             defaults["form"] = self.add_form
         defaults.update(kwargs)
-        return super().get_form
+        return super().get_form(request, obj, **defaults)
+
+    def has_change_permission(self, 
