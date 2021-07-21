@@ -62,4 +62,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         return super().get_form(request, obj, **defaults)
 
     def has_change_permission(self, request, obj=None):
-        if not request.user.is_superuser and app_settings.
+        if not request.user.is_superuser and app_settings.CHANGE_PERM_SUPERUSER_ONLY:
+            return False
+
+ 
