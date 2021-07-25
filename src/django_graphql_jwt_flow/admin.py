@@ -69,4 +69,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         if not request.user.is_superuser and app_settings.DELETE_PERM_SUPERUSER_ONLY:
-        
+            return False
+        return super().has_delete_perm
