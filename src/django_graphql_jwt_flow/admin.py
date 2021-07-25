@@ -73,4 +73,6 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         return super().has_delete_permission(request, obj=obj)
 
     def refresh_token_action(
-        self,
+        self, request: AuthenticatedRequest, queryset: TokenQuerySet
+    ):
+        objs =
