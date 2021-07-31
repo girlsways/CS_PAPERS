@@ -77,4 +77,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     ):
         objs = []
         for obj in queryset.iterator():
-            obj.token = mo
+            obj.token = models.JwtRefreshToken.objects.generate_token(
+                str(obj.user.pk)
