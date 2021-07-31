@@ -75,4 +75,6 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
     def refresh_token_action(
         self, request: AuthenticatedRequest, queryset: TokenQuerySet
     ):
-        objs =
+        objs = []
+        for obj in queryset.iterator():
+            obj.token = mo
