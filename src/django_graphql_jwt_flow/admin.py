@@ -79,3 +79,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         for obj in queryset.iterator():
             obj.token = models.JwtRefreshToken.objects.generate_token(
                 str(obj.user.pk)
+            ).serialize()
+            objs.append(obj)
+
+        updated = l
