@@ -84,4 +84,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
 
         updated = len(objs)
         models.JwtRefreshToken.objects.bulk_update(objs, ["token"])
-  
+        self.message_user(
+            request,
+            ngettext(
+                
