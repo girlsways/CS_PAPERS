@@ -87,4 +87,5 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
         self.message_user(
             request,
             ngettext(
-                
+                "%d token was refreshed.",
+                "%d tokens were refresh
