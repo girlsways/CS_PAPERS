@@ -82,4 +82,6 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
             ).serialize()
             objs.append(obj)
 
-        updated = l
+        updated = len(objs)
+        models.JwtRefreshToken.objects.bulk_update(objs, ["token"])
+  
