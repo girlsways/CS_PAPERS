@@ -92,4 +92,7 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
                 updated,
             )
             % updated,
-  
+            messages.SUCCESS,
+        )
+
+    refresh_token_acti
