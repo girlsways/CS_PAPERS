@@ -95,4 +95,4 @@ class JwtRefreshTokenAdmin(admin.ModelAdmin):
             messages.SUCCESS,
         )
 
-    refresh_token_acti
+    refresh_token_action.short_description = _("Refresh token(s)")
