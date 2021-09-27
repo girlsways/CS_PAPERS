@@ -1,0 +1,1 @@
+from graphql.error.base import GraphQLError as Ba

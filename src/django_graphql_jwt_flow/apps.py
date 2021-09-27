@@ -91,3 +91,34 @@ class AppSettings:
         :return: The key configured to use by default.
         """
         if self.KEY_FILE:
+            if self.KEY_FILE.suffix.lower() == ".pem":
+                return jwk.JWK.from_pem(self.KEY_FILE.read_bytes())
+            elif self.KEY_FILE.suffix.lower() == ".json":
+                return jwk.JWK.from_json(self.KEY_FILE.read_text(encoding="utf-8"))
+            elif self.KEY_FILE.suffix.lower() == ".pyca":
+                return jwk.JWK.from_pyca(self.KEY_FILE.read_text(encoding="utf-8"))
+            else:
+                raise TypeError(f"{self.KEY_FILE.suffix}: Unsupported file type.")
+        elif self.KEY:
+            if self.KEY_FORMAT == "PEM":
+                return jwk.JWK.from_pem(
+                    self.KEY.encode("utf-8") if isinstance(self.KEY, str) else self.KEY
+                )
+            elif self.KEY_FORMAT == "JSON":
+                return jwk.JWK.from_json(self.KEY)
+            elif self.KEY_FORMAT == "DICT":
+                if not isinstance(self.KEY, dict):
+                    raise TypeError(
+                        "KEY_FORMAT is set to DICT, but KEY is not a dictionary"
+                    )
+                return jwk.JWK(**self.KEY)
+            else:
+                raise TypeError(f"{self.KEY_FORMAT}: Unsupported key format")
+        else:
+            raise ImproperlyConfigured("Either a KEY or KEY_FILE is needed")
+
+    def get_expiration_delta(self) -> timedelta:
+        return timedelta(days=self.REFRESH_DAYS)
+
+
+app_settings = AppSettings("JWT_FLOW")
