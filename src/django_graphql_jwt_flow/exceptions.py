@@ -7,4 +7,8 @@ class GraphQLError(BaseGraphQLError):
     def __init__(
         self,
         message,  # type: str
-        status_code=0,  # type:
+        status_code=0,  # type: int
+        **kwargs,
+    ):
+        # type: (...) -> None
+        super().__in
