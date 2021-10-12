@@ -11,4 +11,5 @@ class GraphQLError(BaseGraphQLError):
         **kwargs,
     ):
         # type: (...) -> None
-        super().__in
+        super().__init__(message, **kwargs)
+        self.status_code = status_code
