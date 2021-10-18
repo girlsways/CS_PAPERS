@@ -4,4 +4,9 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
-fr
+from . import models
+from .apps import app_settings
+
+
+def get_default_expires_at():
+   
