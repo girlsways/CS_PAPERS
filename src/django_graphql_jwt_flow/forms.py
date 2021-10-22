@@ -12,4 +12,5 @@ def get_default_expires_at():
     return timezone.now() + timedelta(days=app_settings.REFRESH_DAYS)
 
 
-class
+class CreateTokenForm(forms.ModelForm):
+    expires_at = forms.DateTimeField(initi
