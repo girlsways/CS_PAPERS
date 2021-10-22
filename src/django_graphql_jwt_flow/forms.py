@@ -9,4 +9,7 @@ from .apps import app_settings
 
 
 def get_default_expires_at():
-   
+    return timezone.now() + timedelta(days=app_settings.REFRESH_DAYS)
+
+
+class
