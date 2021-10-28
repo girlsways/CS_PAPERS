@@ -15,4 +15,6 @@ def get_default_expires_at():
 class CreateTokenForm(forms.ModelForm):
     expires_at = forms.DateTimeField(initial=get_default_expires_at, required=True)
 
-    def clean_expires_at(s
+    def clean_expires_at(self):
+        value: datetime = self.cleaned_data["expires_at"]
+        if value 
