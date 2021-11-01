@@ -17,4 +17,5 @@ class CreateTokenForm(forms.ModelForm):
 
     def clean_expires_at(self):
         value: datetime = self.cleaned_data["expires_at"]
-        if value 
+        if value < timezone.now():
+            raise ValidationError({"expires
