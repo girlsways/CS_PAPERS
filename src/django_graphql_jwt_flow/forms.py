@@ -23,4 +23,6 @@ class CreateTokenForm(forms.ModelForm):
         return value.astimezone(timezone.utc)
 
     def save(self, commit=True):
-        user 
+        user = self.cleaned_data["user"]
+        pk = str(user.pk)
+   
