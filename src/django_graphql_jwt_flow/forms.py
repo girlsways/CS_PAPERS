@@ -20,4 +20,7 @@ class CreateTokenForm(forms.ModelForm):
         if value < timezone.now():
             raise ValidationError({"expires_at": "Token expires before issue date"})
 
-        return v
+        return value.astimezone(timezone.utc)
+
+    def save(self, commit=True):
+        user 
