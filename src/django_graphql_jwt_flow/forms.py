@@ -27,4 +27,5 @@ class CreateTokenForm(forms.ModelForm):
         pk = str(user.pk)
         expires_at = self.cleaned_data["expires_at"]
         token = models.JwtRefreshToken.objects.generate_token(pk, expires_at=expires_at)
-        self.ins
+        self.instance.token = token.serialize()
+        return super().sav
