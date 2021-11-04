@@ -31,4 +31,5 @@ class CreateTokenForm(forms.ModelForm):
         return super().save(commit=commit)
 
     class Meta:
-        model = models.JwtRef
+        model = models.JwtRefreshToken
+        fields = ("user",)
