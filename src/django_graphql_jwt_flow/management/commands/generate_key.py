@@ -7,4 +7,9 @@ import jwcrypto.jwk as jwk
 from django.core.management import BaseCommand, CommandError
 
 if t.TYPE_CHECKING:
-    from io import
+    from io import StringIO
+
+
+class Command(BaseCommand):
+    encoding = "utf-8"
+    supported_form
