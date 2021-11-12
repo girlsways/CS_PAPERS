@@ -4,4 +4,7 @@ import argparse
 import typing as t
 
 import jwcrypto.jwk as jwk
-from django.core.manageme
+from django.core.management import BaseCommand, CommandError
+
+if t.TYPE_CHECKING:
+    from io import
