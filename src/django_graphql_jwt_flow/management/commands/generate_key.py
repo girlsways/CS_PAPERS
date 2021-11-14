@@ -12,4 +12,7 @@ if t.TYPE_CHECKING:
 
 class Command(BaseCommand):
     encoding = "utf-8"
-    supported_form
+    supported_formats = ("PEM", "JSON")
+
+    def add_arguments(self, parser: argparse.ArgumentParser):
+ 
