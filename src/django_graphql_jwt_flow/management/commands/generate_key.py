@@ -15,4 +15,6 @@ class Command(BaseCommand):
     supported_formats = ("PEM", "JSON")
 
     def add_arguments(self, parser: argparse.ArgumentParser):
- 
+        parser.add_argument(
+            "--pub-out",
+            type=argpa
