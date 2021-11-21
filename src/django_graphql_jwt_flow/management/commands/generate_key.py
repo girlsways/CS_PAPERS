@@ -17,4 +17,6 @@ class Command(BaseCommand):
     def add_arguments(self, parser: argparse.ArgumentParser):
         parser.add_argument(
             "--pub-out",
-            type=argpa
+            type=argparse.FileType(mode="wt", encoding=self.encoding),
+            metavar="file",
+        
