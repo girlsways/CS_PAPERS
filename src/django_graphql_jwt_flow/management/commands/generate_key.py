@@ -21,4 +21,6 @@ class Command(BaseCommand):
             metavar="file",
             help="File to write the public key to.",
         )
-        parser.add_ar
+        parser.add_argument("--pub-format", default="JSON")
+        parser.add_argument(
+     
