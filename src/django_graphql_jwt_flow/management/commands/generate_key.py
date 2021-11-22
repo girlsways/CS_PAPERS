@@ -19,4 +19,6 @@ class Command(BaseCommand):
             "--pub-out",
             type=argparse.FileType(mode="wt", encoding=self.encoding),
             metavar="file",
-        
+            help="File to write the public key to.",
+        )
+        parser.add_ar
