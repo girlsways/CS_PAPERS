@@ -24,4 +24,6 @@ class Command(BaseCommand):
         parser.add_argument("--pub-format", default="JSON")
         parser.add_argument(
             "--priv-out",
-            type=argparse.FileType(mode="wt", encoding=self
+            type=argparse.FileType(mode="wt", encoding=self.encoding),
+            metavar="file",
+            help="File to write the 
