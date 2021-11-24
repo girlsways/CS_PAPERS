@@ -26,4 +26,6 @@ class Command(BaseCommand):
             "--priv-out",
             type=argparse.FileType(mode="wt", encoding=self.encoding),
             metavar="file",
-            help="File to write the 
+            help="File to write the private key to",
+        )
+        parser.add_argument("--priv-for
