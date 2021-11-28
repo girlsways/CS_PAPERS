@@ -28,4 +28,7 @@ class Command(BaseCommand):
             metavar="file",
             help="File to write the private key to",
         )
-        parser.add_argument("--priv-for
+        parser.add_argument("--priv-format", default="PEM")
+
+    def handle(self, *args, **options):
+    
