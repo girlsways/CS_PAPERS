@@ -31,4 +31,5 @@ class Command(BaseCommand):
         parser.add_argument("--priv-format", default="PEM")
 
     def handle(self, *args, **options):
-    
+        if options["pub_format"] not in self.supported_formats:
+            ra
