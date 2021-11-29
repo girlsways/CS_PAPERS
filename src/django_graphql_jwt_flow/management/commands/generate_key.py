@@ -32,4 +32,4 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options["pub_format"] not in self.supported_formats:
-            ra
+            raise CommandError(f"Unsupported format: {options['pub_format']}")
