@@ -37,4 +37,6 @@ class Command(BaseCommand):
             raise CommandError(f"Unsupported format: {options['priv_format']}")
 
         key = jwk.JWK.generate(kty="OKP", crv="Ed25519")
-        if not options["
+        if not options["pub_out"] and not options["priv_out"]:
+            print("Private:")
+        
