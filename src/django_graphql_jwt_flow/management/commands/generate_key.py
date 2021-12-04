@@ -33,3 +33,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options["pub_format"] not in self.supported_formats:
             raise CommandError(f"Unsupported format: {options['pub_format']}")
+        if options["priv_format"] not in self.supported_formats:
+         
