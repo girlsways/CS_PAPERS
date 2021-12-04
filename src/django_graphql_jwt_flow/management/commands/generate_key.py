@@ -36,4 +36,5 @@ class Command(BaseCommand):
         if options["priv_format"] not in self.supported_formats:
             raise CommandError(f"Unsupported format: {options['priv_format']}")
 
-    
+        key = jwk.JWK.generate(kty="OKP", crv="Ed25519")
+        if not options["
