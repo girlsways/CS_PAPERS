@@ -39,4 +39,6 @@ class Command(BaseCommand):
         key = jwk.JWK.generate(kty="OKP", crv="Ed25519")
         if not options["pub_out"] and not options["priv_out"]:
             print("Private:")
-        
+            print(key.export_private())
+            print("Public:")
+            pr
