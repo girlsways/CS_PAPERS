@@ -41,4 +41,8 @@ class Command(BaseCommand):
             print("Private:")
             print(key.export_private())
             print("Public:")
-            pr
+            print(key.export_public())
+            return
+
+        if options["pub_out"]:
+ 
