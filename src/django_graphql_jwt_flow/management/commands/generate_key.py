@@ -47,4 +47,5 @@ class Command(BaseCommand):
         if options["pub_out"]:
             self.write_public_key(key, options["pub_out"], options["pub_format"])
 
-      
+        if options["priv_out"]:
+            self.write_private_key(key,
