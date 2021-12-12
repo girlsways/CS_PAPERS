@@ -50,4 +50,5 @@ class Command(BaseCommand):
         if options["priv_out"]:
             self.write_private_key(key, options["priv_out"], options["priv_format"])
 
-    def write_public_key(se
+    def write_public_key(self, key: jwk.JWK, file_obj: StringIO, fmt: str):
+        if fmt ==
