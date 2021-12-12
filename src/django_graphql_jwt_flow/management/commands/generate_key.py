@@ -51,4 +51,7 @@ class Command(BaseCommand):
             self.write_private_key(key, options["priv_out"], options["priv_format"])
 
     def write_public_key(self, key: jwk.JWK, file_obj: StringIO, fmt: str):
-        if fmt ==
+        if fmt == "JSON":
+            with file_obj:
+                file_obj.write(key.export_public())
+ 
