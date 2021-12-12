@@ -54,4 +54,6 @@ class Command(BaseCommand):
         if fmt == "JSON":
             with file_obj:
                 file_obj.write(key.export_public())
- 
+        elif fmt == "PEM":
+            with file_obj:
+                file_obj.wr
