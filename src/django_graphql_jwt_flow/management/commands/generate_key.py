@@ -58,4 +58,6 @@ class Command(BaseCommand):
             with file_obj:
                 file_obj.write(key.export_to_pem().decode(self.encoding))
         else:
-            self.stderr.write(self.style.ERROR(f"{fmt}: Unsupported fo
+            self.stderr.write(self.style.ERROR(f"{fmt}: Unsupported format"))
+            return
+        self.stdout.write(self.style.SUCCESS("==> P
