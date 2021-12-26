@@ -62,4 +62,6 @@ class Command(BaseCommand):
             return
         self.stdout.write(self.style.SUCCESS("==> Public key exported."))
 
-    def write_private_key(self, key: jwk.JWK, file_ob
+    def write_private_key(self, key: jwk.JWK, file_obj: StringIO, fmt: str):
+        if fmt == "JSON":
+            wit
