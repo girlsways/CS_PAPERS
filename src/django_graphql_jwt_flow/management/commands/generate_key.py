@@ -65,4 +65,7 @@ class Command(BaseCommand):
     def write_private_key(self, key: jwk.JWK, file_obj: StringIO, fmt: str):
         if fmt == "JSON":
             with file_obj:
-                file_obj.write(key.export_private()
+                file_obj.write(key.export_private())
+        elif fmt == "PEM":
+            with file_obj:
+                f
