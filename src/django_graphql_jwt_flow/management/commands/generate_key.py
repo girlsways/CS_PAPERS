@@ -60,4 +60,6 @@ class Command(BaseCommand):
         else:
             self.stderr.write(self.style.ERROR(f"{fmt}: Unsupported format"))
             return
-        self.stdout.write(self.style.SUCCESS("==> P
+        self.stdout.write(self.style.SUCCESS("==> Public key exported."))
+
+    def write_private_key(self, key: jwk.JWK, file_ob
