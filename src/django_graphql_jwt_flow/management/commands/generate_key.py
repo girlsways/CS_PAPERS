@@ -69,4 +69,6 @@ class Command(BaseCommand):
         elif fmt == "PEM":
             with file_obj:
                 file_obj.write(
-                    key.export_to_pem(private_key=Tr
+                    key.export_to_pem(private_key=True, password=None).decode(
+                        self.encoding
+               
