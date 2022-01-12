@@ -71,4 +71,7 @@ class Command(BaseCommand):
                 file_obj.write(
                     key.export_to_pem(private_key=True, password=None).decode(
                         self.encoding
-               
+                    )
+                )
+        else:
+            self.stderr.write(s
