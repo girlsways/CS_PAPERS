@@ -75,4 +75,5 @@ class Command(BaseCommand):
                 )
         else:
             self.stderr.write(self.style.ERROR(f"{fmt}: Unsupported format"))
-            retur
+            return
+        self.stdout.write(self.style.SUCCESS("==> Private key 
