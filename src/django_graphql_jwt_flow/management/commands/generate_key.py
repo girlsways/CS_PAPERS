@@ -74,4 +74,5 @@ class Command(BaseCommand):
                     )
                 )
         else:
-            self.stderr.write(s
+            self.stderr.write(self.style.ERROR(f"{fmt}: Unsupported format"))
+            retur
