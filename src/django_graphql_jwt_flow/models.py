@@ -8,4 +8,5 @@ from django.contrib.auth import get_user_model
 from django.db import models, IntegrityError
 from django.utils.translation import gettext_lazy as _
 from jwcrypto import jwt
-from jwcrypto.comm
+from jwcrypto.common import json_decode
+from jwcrypto.jws import Invalid
