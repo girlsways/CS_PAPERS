@@ -14,4 +14,6 @@ from jwcrypto.jws import InvalidJWSSignature, InvalidJWSObject
 __all__ = ("JwtRefreshToken", "JwtRefreshTokenManager")
 
 if t.TYPE_CHECKING:  # pragma: no cover
-    from django.cont
+    from django.contrib.auth.base_user import AbstractBaseUser
+
+    CustomUser = t.TypeVar("Cust
