@@ -22,4 +22,5 @@ if t.TYPE_CHECKING:  # pragma: no cover
 User: t.Type[CustomUser] = get_user_model()
 
 
-class J
+class JwtRefreshTokenManager(models.Manager):
+    def create(self, user: User
