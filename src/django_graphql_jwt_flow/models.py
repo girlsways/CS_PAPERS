@@ -16,4 +16,5 @@ __all__ = ("JwtRefreshToken", "JwtRefreshTokenManager")
 if t.TYPE_CHECKING:  # pragma: no cover
     from django.contrib.auth.base_user import AbstractBaseUser
 
-    CustomUser = t.TypeVar("Cust
+    CustomUser = t.TypeVar("CustomUser", bound=AbstractBaseUser)
+    JSONScalars = t.Union[int, str, float, byte
