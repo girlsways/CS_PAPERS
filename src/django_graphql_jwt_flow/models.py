@@ -17,4 +17,9 @@ if t.TYPE_CHECKING:  # pragma: no cover
     from django.contrib.auth.base_user import AbstractBaseUser
 
     CustomUser = t.TypeVar("CustomUser", bound=AbstractBaseUser)
-    JSONScalars = t.Union[int, str, float, byte
+    JSONScalars = t.Union[int, str, float, bytes, bytearray, bool, None]
+
+User: t.Type[CustomUser] = get_user_model()
+
+
+class J
