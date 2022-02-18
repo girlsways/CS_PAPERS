@@ -26,4 +26,5 @@ class JwtRefreshTokenManager(models.Manager):
     def create(self, user: User):
         if hasattr(user, "jwt_refresh_token"):
             raise IntegrityError(f"User {user.get_username()} already has a token")
-        return super(
+        return super().create(
+            user=user, token=self.generate_token(str(user.pk)).serialize(
