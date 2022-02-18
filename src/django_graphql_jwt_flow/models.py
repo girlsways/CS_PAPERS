@@ -25,4 +25,5 @@ User: t.Type[CustomUser] = get_user_model()
 class JwtRefreshTokenManager(models.Manager):
     def create(self, user: User):
         if hasattr(user, "jwt_refresh_token"):
-            raise IntegrityError(
+            raise IntegrityError(f"User {user.get_username()} already has a token")
+        return super(
