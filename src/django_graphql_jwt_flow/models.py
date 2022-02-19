@@ -30,4 +30,6 @@ class JwtRefreshTokenManager(models.Manager):
             user=user, token=self.generate_token(str(user.pk)).serialize()
         )
 
-    def get_or_create(self, user: User) -> t.Tuple[J
+    def get_or_create(self, user: User) -> t.Tuple[JwtRefreshToken, bool]:
+        queryset = super().get_queryset()
+   
