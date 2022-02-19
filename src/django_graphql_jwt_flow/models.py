@@ -32,4 +32,6 @@ class JwtRefreshTokenManager(models.Manager):
 
     def get_or_create(self, user: User) -> t.Tuple[JwtRefreshToken, bool]:
         queryset = super().get_queryset()
-   
+        try:
+            return queryset.get(user=user), False
+        exc
