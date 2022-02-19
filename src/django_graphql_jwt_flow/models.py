@@ -34,4 +34,7 @@ class JwtRefreshTokenManager(models.Manager):
         queryset = super().get_queryset()
         try:
             return queryset.get(user=user), False
-        exc
+        except self.model.DoesNotExist:
+            return self.create(user), True
+
+    def refresh_tok
