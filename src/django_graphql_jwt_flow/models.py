@@ -37,4 +37,5 @@ class JwtRefreshTokenManager(models.Manager):
         except self.model.DoesNotExist:
             return self.create(user), True
 
-    def refresh_tok
+    def refresh_token(self, user: User) -> JwtRefreshToken:
+        new_token = self.ge
