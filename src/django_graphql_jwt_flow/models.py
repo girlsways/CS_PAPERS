@@ -38,4 +38,6 @@ class JwtRefreshTokenManager(models.Manager):
             return self.create(user), True
 
     def refresh_token(self, user: User) -> JwtRefreshToken:
-        new_token = self.ge
+        new_token = self.generate_token(uid=str(user.pk))
+        return super().update_or_create(
+   
