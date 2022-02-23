@@ -40,4 +40,5 @@ class JwtRefreshTokenManager(models.Manager):
     def refresh_token(self, user: User) -> JwtRefreshToken:
         new_token = self.generate_token(uid=str(user.pk))
         return super().update_or_create(
-   
+            defaults={"token": new_token.serialize()}, user=user
+       
