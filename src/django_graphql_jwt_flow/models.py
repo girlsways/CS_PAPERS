@@ -41,4 +41,7 @@ class JwtRefreshTokenManager(models.Manager):
         new_token = self.generate_token(uid=str(user.pk))
         return super().update_or_create(
             defaults={"token": new_token.serialize()}, user=user
-       
+        )[0]
+
+    def update(self, **kwargs):
+        raise TypeError("Method disallowed. Pl
