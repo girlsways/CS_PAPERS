@@ -47,4 +47,8 @@ class JwtRefreshTokenManager(models.Manager):
         raise TypeError("Method disallowed. Please use refresh_token().")
 
     def update_or_create(self, defaults=None, **kwargs):
-        raise TypeError("Method disallowed. Please use
+        raise TypeError("Method disallowed. Please use refresh_token().")
+
+    @classmethod
+    def generate_token(
+ 
