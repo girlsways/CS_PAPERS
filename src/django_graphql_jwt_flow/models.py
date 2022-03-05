@@ -51,4 +51,6 @@ class JwtRefreshTokenManager(models.Manager):
 
     @classmethod
     def generate_token(
- 
+        cls,
+        uid: str,
+        header: t.Dict[str, JSONScalars] = Non
