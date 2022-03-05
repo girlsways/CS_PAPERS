@@ -55,4 +55,6 @@ class JwtRefreshTokenManager(models.Manager):
         uid: str,
         header: t.Dict[str, JSONScalars] = None,
         expires_at: t.Optional[datetime] = None,
-  
+        **claims,
+    ) -> jwt.JWT:
+        from .apps import app_settin
