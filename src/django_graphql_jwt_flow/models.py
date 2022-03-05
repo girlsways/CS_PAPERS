@@ -53,4 +53,6 @@ class JwtRefreshTokenManager(models.Manager):
     def generate_token(
         cls,
         uid: str,
-        header: t.Dict[str, JSONScalars] = Non
+        header: t.Dict[str, JSONScalars] = None,
+        expires_at: t.Optional[datetime] = None,
+  
