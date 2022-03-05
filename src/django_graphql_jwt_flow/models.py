@@ -57,4 +57,8 @@ class JwtRefreshTokenManager(models.Manager):
         expires_at: t.Optional[datetime] = None,
         **claims,
     ) -> jwt.JWT:
-        from .apps import app_settin
+        from .apps import app_settings
+
+        key = app_settings.get_key()
+        claims.update(uid=uid)
+  
