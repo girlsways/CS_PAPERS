@@ -61,4 +61,5 @@ class JwtRefreshTokenManager(models.Manager):
 
         key = app_settings.get_key()
         claims.update(uid=uid)
-  
+        now = datetime.utcnow()
+        if not app_settings.TIME_WITH_MICRO
