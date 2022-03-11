@@ -68,4 +68,6 @@ class JwtRefreshTokenManager(models.Manager):
         expires_at = expires_at or now + delta
         default_claims = {
             "iat": now.timestamp(),
-   
+            "exp": expires_at.timestamp(),
+        }
+        heade
