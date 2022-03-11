@@ -65,4 +65,7 @@ class JwtRefreshTokenManager(models.Manager):
         if not app_settings.TIME_WITH_MICROSECONDS:
             now = now.replace(microsecond=0)
         delta = app_settings.get_expiration_delta()
-        expires_at = expire
+        expires_at = expires_at or now + delta
+        default_claims = {
+            "iat": now.timestamp(),
+   
