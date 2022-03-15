@@ -70,4 +70,6 @@ class JwtRefreshTokenManager(models.Manager):
             "iat": now.timestamp(),
             "exp": expires_at.timestamp(),
         }
-        heade
+        header = header or {}
+        header.update(alg=app_settings.SIGNATURE_ALG)
+        token = jwt
