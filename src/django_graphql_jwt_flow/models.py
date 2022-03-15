@@ -72,4 +72,5 @@ class JwtRefreshTokenManager(models.Manager):
         }
         header = header or {}
         header.update(alg=app_settings.SIGNATURE_ALG)
-        token = jwt
+        token = jwt.JWT(header=header, claims=claims, default_claims=default_claims)
+    
