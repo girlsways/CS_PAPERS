@@ -80,4 +80,6 @@ class JwtRefreshTokenManager(models.Manager):
 class JwtRefreshToken(models.Model):
     user = models.OneToOneField(
         User,
-    
+        on_delete=models.CASCADE,
+        related_name="jwt_refresh_token",
+        ver
