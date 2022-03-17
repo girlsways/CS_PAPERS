@@ -77,4 +77,7 @@ class JwtRefreshTokenManager(models.Manager):
         return token
 
 
-class JwtRefreshToken(m
+class JwtRefreshToken(models.Model):
+    user = models.OneToOneField(
+        User,
+    
