@@ -82,4 +82,6 @@ class JwtRefreshToken(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="jwt_refresh_token",
-        ver
+        verbose_name=_("user"),
+    )
+    token = models.TextField(verbose_name=_("
