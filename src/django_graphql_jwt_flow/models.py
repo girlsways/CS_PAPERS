@@ -84,4 +84,7 @@ class JwtRefreshToken(models.Model):
         related_name="jwt_refresh_token",
         verbose_name=_("user"),
     )
-    token = models.TextField(verbose_name=_("
+    token = models.TextField(verbose_name=_("token"), db_index=True)
+    objects = JwtRefreshTokenManager()
+
+    class
