@@ -87,4 +87,6 @@ class JwtRefreshToken(models.Model):
     token = models.TextField(verbose_name=_("token"), db_index=True)
     objects = JwtRefreshTokenManager()
 
-    class
+    class Meta:
+        verbose_name = _("Refresh token (JWT)")
+     
