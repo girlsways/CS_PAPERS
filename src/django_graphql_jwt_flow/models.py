@@ -89,4 +89,7 @@ class JwtRefreshToken(models.Model):
 
     class Meta:
         verbose_name = _("Refresh token (JWT)")
-     
+        verbose_name_plural = _("Refresh tokens (JWT)")
+
+    def __str__(self):
+    
