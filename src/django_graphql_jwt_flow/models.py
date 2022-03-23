@@ -92,4 +92,6 @@ class JwtRefreshToken(models.Model):
         verbose_name_plural = _("Refresh tokens (JWT)")
 
     def __str__(self):
-    
+        return f"token for user with ID {self.user.pk}"
+
+    def is_valid(
