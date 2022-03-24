@@ -94,4 +94,6 @@ class JwtRefreshToken(models.Model):
     def __str__(self):
         return f"token for user with ID {self.user.pk}"
 
-    def is_valid(
+    def is_valid(self) -> bool:
+        """
+        Asserts that the user id corrspon
