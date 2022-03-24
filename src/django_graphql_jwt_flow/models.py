@@ -96,4 +96,5 @@ class JwtRefreshToken(models.Model):
 
     def is_valid(self) -> bool:
         """
-        Asserts that the user id corrspon
+        Asserts that the user id corrsponds to the pk and that the current time
+        is within timerestrictions
