@@ -104,4 +104,5 @@ class JwtRefreshToken(models.Model):
         from .apps import app_settings
 
         try:
-            toke
+            token = jwt.JWT(key=app_settings.get_key(), jwt=self.token)
+        except (Invalid
