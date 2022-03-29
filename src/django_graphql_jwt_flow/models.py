@@ -100,3 +100,8 @@ class JwtRefreshToken(models.Model):
         is within timerestrictions placed in the claim.
 
         :return: Whether the token is valid
+        """
+        from .apps import app_settings
+
+        try:
+            toke
