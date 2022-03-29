@@ -105,4 +105,7 @@ class JwtRefreshToken(models.Model):
 
         try:
             token = jwt.JWT(key=app_settings.get_key(), jwt=self.token)
-        except (Invalid
+        except (InvalidJWSSignature, InvalidJWSObject):
+            return False
+        try:
+            claims = j
