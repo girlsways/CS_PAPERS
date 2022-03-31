@@ -108,4 +108,5 @@ class JwtRefreshToken(models.Model):
         except (InvalidJWSSignature, InvalidJWSObject):
             return False
         try:
-            claims = j
+            claims = json_decode(token.claims)
+        except (JSONDecodeError, TypeError):  # pragma
