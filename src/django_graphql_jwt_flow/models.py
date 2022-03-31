@@ -109,4 +109,8 @@ class JwtRefreshToken(models.Model):
             return False
         try:
             claims = json_decode(token.claims)
-        except (JSONDecodeError, TypeError):  # pragma
+        except (JSONDecodeError, TypeError):  # pragma: no cover
+            return False
+
+        now = datetime.utcnow()
+     
