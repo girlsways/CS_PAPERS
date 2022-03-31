@@ -113,4 +113,4 @@ class JwtRefreshToken(models.Model):
             return False
 
         now = datetime.utcnow()
-     
+        not_before = datetime.fromtimestamp(claims.get("nbf", claim
