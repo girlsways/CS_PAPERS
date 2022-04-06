@@ -115,4 +115,5 @@ class JwtRefreshToken(models.Model):
         now = datetime.utcnow()
         not_before = datetime.fromtimestamp(claims.get("nbf", claims["iat"]))
         not_after = datetime.fromtimestamp(claims["exp"])
-    
+        not_before -= timedelta(seconds=app_settings.ALLOWED_SKEW)
+  
