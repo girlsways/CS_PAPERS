@@ -119,4 +119,7 @@ class JwtRefreshToken(models.Model):
         not_after += timedelta(seconds=app_settings.ALLOWED_SKEW)
         time_valid = not_before < now < not_after
 
-        return time_valid and st
+        return time_valid and str(self.user.pk) == claims["uid"]
+
+    def refresh(self):
+        # 
