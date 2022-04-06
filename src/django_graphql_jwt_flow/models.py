@@ -117,4 +117,6 @@ class JwtRefreshToken(models.Model):
         not_after = datetime.fromtimestamp(claims["exp"])
         not_before -= timedelta(seconds=app_settings.ALLOWED_SKEW)
         not_after += timedelta(seconds=app_settings.ALLOWED_SKEW)
- 
+        time_valid = not_before < now < not_after
+
+        return time_valid and st
