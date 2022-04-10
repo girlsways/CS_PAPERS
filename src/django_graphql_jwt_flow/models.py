@@ -122,4 +122,5 @@ class JwtRefreshToken(models.Model):
         return time_valid and str(self.user.pk) == claims["uid"]
 
     def refresh(self):
-        # 
+        # noinspection PyTypeChecker
+        return self.__cla
