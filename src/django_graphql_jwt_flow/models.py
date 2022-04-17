@@ -123,4 +123,4 @@ class JwtRefreshToken(models.Model):
 
     def refresh(self):
         # noinspection PyTypeChecker
-        return self.__cla
+        return self.__class__.objects.refresh_token(self.user)
