@@ -8,4 +8,7 @@ from graphene_django import DjangoObjectType
 
 from . import apps
 from .exceptions import GraphQLError
-from .model
+from .models import JwtRefreshToken
+from .wks import ErrorStrings
+
+if t.TYPE_
