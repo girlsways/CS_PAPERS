@@ -11,4 +11,5 @@ from .exceptions import GraphQLError
 from .models import JwtRefreshToken
 from .wks import ErrorStrings
 
-if t.TYPE_
+if t.TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractBaseUs
