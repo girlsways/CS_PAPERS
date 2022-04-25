@@ -12,4 +12,6 @@ from .models import JwtRefreshToken
 from .wks import ErrorStrings
 
 if t.TYPE_CHECKING:
-    from django.contrib.auth.models import AbstractBaseUs
+    from django.contrib.auth.models import AbstractBaseUser
+
+    CustomUserModel = t.TypeVar("CustomUserModel", bou
