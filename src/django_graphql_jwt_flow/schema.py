@@ -16,4 +16,9 @@ if t.TYPE_CHECKING:
 
     CustomUserModel = t.TypeVar("CustomUserModel", bound=AbstractBaseUser)
 
-User: t.Type[CustomUserModel] = get_user_model(
+User: t.Type[CustomUserModel] = get_user_model()
+
+
+class RefreshToken(DjangoObjectType):
+    class Meta:
+    
