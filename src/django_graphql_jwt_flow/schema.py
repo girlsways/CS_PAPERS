@@ -14,4 +14,6 @@ from .wks import ErrorStrings
 if t.TYPE_CHECKING:
     from django.contrib.auth.models import AbstractBaseUser
 
-    CustomUserModel = t.TypeVar("CustomUserModel", bou
+    CustomUserModel = t.TypeVar("CustomUserModel", bound=AbstractBaseUser)
+
+User: t.Type[CustomUserModel] = get_user_model(
