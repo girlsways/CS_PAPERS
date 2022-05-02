@@ -28,4 +28,5 @@ class RefreshToken(DjangoObjectType):
 class Login(graphene.Mutation):
     class Meta:
         arguments = {
-            get
+            getattr(User, "USERNAME_FIELD", "username"): graphene.Argument(
+     
