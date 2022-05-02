@@ -25,4 +25,7 @@ class RefreshToken(DjangoObjectType):
         fields = ("user", "token")
 
 
-class L
+class Login(graphene.Mutation):
+    class Meta:
+        arguments = {
+            get
