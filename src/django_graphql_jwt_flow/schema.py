@@ -21,4 +21,8 @@ User: t.Type[CustomUserModel] = get_user_model()
 
 class RefreshToken(DjangoObjectType):
     class Meta:
-    
+        model = JwtRefreshToken
+        fields = ("user", "token")
+
+
+class L
