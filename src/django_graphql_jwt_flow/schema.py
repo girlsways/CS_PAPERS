@@ -31,4 +31,5 @@ class Login(graphene.Mutation):
             getattr(User, "USERNAME_FIELD", "username"): graphene.Argument(
                 graphene.String, required=True
             ),
-         
+            "password": graphene.Argument(graphene.String, required=True),
+      
