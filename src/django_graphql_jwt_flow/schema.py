@@ -29,4 +29,6 @@ class Login(graphene.Mutation):
     class Meta:
         arguments = {
             getattr(User, "USERNAME_FIELD", "username"): graphene.Argument(
-     
+                graphene.String, required=True
+            ),
+         
