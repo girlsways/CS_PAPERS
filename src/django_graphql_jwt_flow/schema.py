@@ -32,4 +32,9 @@ class Login(graphene.Mutation):
                 graphene.String, required=True
             ),
             "password": graphene.Argument(graphene.String, required=True),
-      
+        }
+
+    success = graphene.Boolean()
+
+    @classmethod
+    def muta
