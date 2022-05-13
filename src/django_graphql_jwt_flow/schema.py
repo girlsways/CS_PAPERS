@@ -37,4 +37,5 @@ class Login(graphene.Mutation):
     success = graphene.Boolean()
 
     @classmethod
-    def muta
+    def mutate(
+        cls, root: graphene.ObjectType, info: graphene.ResolveInfo, **cred
