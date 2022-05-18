@@ -42,4 +42,6 @@ class Login(graphene.Mutation):
     ):
         user = authenticate(request=info.context, **credentials)
         if not user:
-            raise GraphQLError(ErrorStrings.invali
+            raise GraphQLError(ErrorStrings.invalid_credentials, status_code=401)
+
+        private_key = apps.settings.get_priv
