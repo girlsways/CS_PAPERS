@@ -38,4 +38,6 @@ class Login(graphene.Mutation):
 
     @classmethod
     def mutate(
-        cls, root: graphene.ObjectType, info: graphene.ResolveInfo, **cred
+        cls, root: graphene.ObjectType, info: graphene.ResolveInfo, **credentials: str
+    ):
+        user = authenticate(request=info.context, **credent
