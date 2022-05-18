@@ -40,4 +40,6 @@ class Login(graphene.Mutation):
     def mutate(
         cls, root: graphene.ObjectType, info: graphene.ResolveInfo, **credentials: str
     ):
-        user = authenticate(request=info.context, **credent
+        user = authenticate(request=info.context, **credentials)
+        if not user:
+            raise GraphQLError(ErrorStrings.invali
