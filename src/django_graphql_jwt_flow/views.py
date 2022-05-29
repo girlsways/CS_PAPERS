@@ -72,3 +72,15 @@ class GraphQLView(BaseGraphQLView):
             # Stay compatible for invalid data/input
             if execution_result.invalid:
                 status_code = 400
+            else:
+                response["data"] = execution_result.data
+
+            if self.batch:
+                response["id"] = ID
+                response["status"] = status_code
+
+            result = self.json_encode(request, response, pretty=show_graphiql)
+        else:
+            result = None
+
+        return result, status_code
