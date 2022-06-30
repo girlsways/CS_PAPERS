@@ -5,4 +5,4 @@ from jwcrypto.jwk import JWK
 from jwcrypto.jwt import JWT
 
 from demo.app.factories import UserFactory
-from dja
+from django_graphql_jwt_flow.models import JwtRefreshTokenManager, Jw
