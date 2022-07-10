@@ -10,4 +10,8 @@ from django_graphql_jwt_flow.models import JwtRefreshTokenManager, JwtRefreshTok
 
 class TokenGeneratorTest(SimpleTestCase):
     oct_key = {
-    
+        "kty": "oct",
+        "k": "-z6e2mZKlX-_9Oa5lw1qaQ",
+    }
+
+  
