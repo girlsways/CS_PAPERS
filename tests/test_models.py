@@ -5,4 +5,9 @@ from jwcrypto.jwk import JWK
 from jwcrypto.jwt import JWT
 
 from demo.app.factories import UserFactory
-from django_graphql_jwt_flow.models import JwtRefreshTokenManager, Jw
+from django_graphql_jwt_flow.models import JwtRefreshTokenManager, JwtRefreshToken
+
+
+class TokenGeneratorTest(SimpleTestCase):
+    oct_key = {
+    
