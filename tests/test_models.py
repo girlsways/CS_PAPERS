@@ -14,4 +14,6 @@ class TokenGeneratorTest(SimpleTestCase):
         "k": "-z6e2mZKlX-_9Oa5lw1qaQ",
     }
 
-  
+    @override_settings(
+        JWT_FLOW={
+            "KEY": 
