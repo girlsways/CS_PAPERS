@@ -16,4 +16,8 @@ class TokenGeneratorTest(SimpleTestCase):
 
     @override_settings(
         JWT_FLOW={
-            "KEY": 
+            "KEY": oct_key,
+            "SIGNATURE_ALG": "HS256",
+        }
+    )
+    def t
