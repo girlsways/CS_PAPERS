@@ -25,4 +25,5 @@ class TokenGeneratorTest(SimpleTestCase):
         serialized = token.serialize()
         key = JWK(**self.oct_key)
         tk = JWT(key=key, jwt=serialized)
- 
+        actual = json_decode(tk.claims)
+        self.
