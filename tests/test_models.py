@@ -23,3 +23,6 @@ class TokenGeneratorTest(SimpleTestCase):
     def test_oct_hsalg(self):
         token = JwtRefreshTokenManager.generate_token(uid="1")
         serialized = token.serialize()
+        key = JWK(**self.oct_key)
+        tk = JWT(key=key, jwt=serialized)
+ 
