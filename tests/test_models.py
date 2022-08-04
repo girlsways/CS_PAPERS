@@ -20,4 +20,5 @@ class TokenGeneratorTest(SimpleTestCase):
             "SIGNATURE_ALG": "HS256",
         }
     )
-    def t
+    def test_oct_hsalg(self):
+        token = JwtRefreshTokenManager.g
