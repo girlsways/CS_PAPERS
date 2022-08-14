@@ -28,4 +28,8 @@ class TokenGeneratorTest(SimpleTestCase):
         actual = json_decode(tk.claims)
         self.assertEqual(actual["uid"], "1")
         self.assertTrue("exp" in actual)
-        self.ass
+        self.assertTrue("iat" in actual)
+
+
+class JwtRefreshTokenTest(TestCase):
+    @stati
