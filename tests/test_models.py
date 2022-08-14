@@ -32,4 +32,6 @@ class TokenGeneratorTest(SimpleTestCase):
 
 
 class JwtRefreshTokenTest(TestCase):
-    @stati
+    @staticmethod
+    def create_user(**overrides):
+        return UserFactory(**overrid
