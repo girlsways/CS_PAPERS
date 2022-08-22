@@ -37,4 +37,6 @@ class JwtRefreshTokenTest(TestCase):
         return UserFactory(**overrides)
 
     def test_manager_create(self):
-        for i
+        for i in range(0, 5):
+            user = self.create_user()
+         
