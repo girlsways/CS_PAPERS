@@ -41,4 +41,7 @@ class JwtRefreshTokenTest(TestCase):
             user = self.create_user()
             self.assertFalse(hasattr(user, "jwt_refresh_token"))
             token = JwtRefreshToken.objects.create(user)
-            self.assertTrue(token.is_vali
+            self.assertTrue(token.is_valid())
+
+    def test_manager_create_user_has_token(self):
+        user = self.crea
