@@ -49,4 +49,5 @@ class JwtRefreshTokenTest(TestCase):
         JwtRefreshToken.objects.create(user)
         with self.assertRaisesMessage(
             IntegrityError, f"User {user.get_username()} already has a token"
- 
+        ):
+            token = JwtRefreshToken.objects.create(user)
