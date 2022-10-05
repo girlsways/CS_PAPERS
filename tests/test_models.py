@@ -51,3 +51,6 @@ class JwtRefreshTokenTest(TestCase):
             IntegrityError, f"User {user.get_username()} already has a token"
         ):
             token = JwtRefreshToken.objects.create(user)
+
+    def test_manager_get_or_create(self):
+        user = self.create_us
