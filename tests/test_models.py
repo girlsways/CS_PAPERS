@@ -55,4 +55,5 @@ class JwtRefreshTokenTest(TestCase):
     def test_manager_get_or_create(self):
         user = self.create_user()
         user2 = self.create_user()
-        expected = JwtRefreshToken
+        expected = JwtRefreshToken.objects.create(user)
+        actual, created = JwtRefreshToken.ob
