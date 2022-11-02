@@ -59,4 +59,7 @@ class JwtRefreshTokenTest(TestCase):
         actual, created = JwtRefreshToken.objects.get_or_create(user)
         self.assertEqual(expected.token, actual.token)
         self.assertFalse(created)
-        __, created = JwtRefres
+        __, created = JwtRefreshToken.objects.get_or_create(user2)
+        self.assertTrue(created)
+
+    @override_
