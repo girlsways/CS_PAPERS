@@ -66,4 +66,5 @@ class JwtRefreshTokenTest(TestCase):
         JWT_FLOW={
             "KEY": {"k": "x-A5aHFjJohn3-wuBsv12Q", "kty": "oct"},
             "REFRESH_DAYS": 7,
-        
+            "SIGNATURE_ALG": "HS384",
+            "TIME_WITH_MIC
