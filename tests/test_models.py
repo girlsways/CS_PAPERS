@@ -62,4 +62,6 @@ class JwtRefreshTokenTest(TestCase):
         __, created = JwtRefreshToken.objects.get_or_create(user2)
         self.assertTrue(created)
 
-    @override_
+    @override_settings(
+        JWT_FLOW={
+            "KEY": {"k": "x-A5aHFjJohn3
