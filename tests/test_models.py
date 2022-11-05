@@ -67,4 +67,7 @@ class JwtRefreshTokenTest(TestCase):
             "KEY": {"k": "x-A5aHFjJohn3-wuBsv12Q", "kty": "oct"},
             "REFRESH_DAYS": 7,
             "SIGNATURE_ALG": "HS384",
-            "TIME_WITH_MIC
+            "TIME_WITH_MICROSECONDS": True,
+        }
+    )
+    def test_manager_refresh_token(sel
