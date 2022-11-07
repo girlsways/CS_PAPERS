@@ -75,4 +75,6 @@ class JwtRefreshTokenTest(TestCase):
         token = JwtRefreshToken.objects.create(user=user)
         previous_token = token.token
         refreshed = JwtRefreshToken.objects.refresh_token(user)
-        self.assertNotEqual(previous_t
+        self.assertNotEqual(previous_token, refreshed.token)
+
+    def test_manager_disallowed_meth
