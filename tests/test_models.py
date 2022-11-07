@@ -70,4 +70,6 @@ class JwtRefreshTokenTest(TestCase):
             "TIME_WITH_MICROSECONDS": True,
         }
     )
-    def test_manager_refresh_token(sel
+    def test_manager_refresh_token(self):
+        user = self.create_user()
+        token = JwtRefreshToke
