@@ -77,4 +77,6 @@ class JwtRefreshTokenTest(TestCase):
         refreshed = JwtRefreshToken.objects.refresh_token(user)
         self.assertNotEqual(previous_token, refreshed.token)
 
-    def test_manager_disallowed_meth
+    def test_manager_disallowed_methods(self):
+        first = self.create_user()
+        second = self.create_user(
