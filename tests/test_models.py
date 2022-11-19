@@ -80,4 +80,5 @@ class JwtRefreshTokenTest(TestCase):
     def test_manager_disallowed_methods(self):
         first = self.create_user()
         second = self.create_user()
-        first_token = JwtRefreshToken.objects.create(user=
+        first_token = JwtRefreshToken.objects.create(user=first)
+        second_token = JwtRefreshToken.objects.create(us
