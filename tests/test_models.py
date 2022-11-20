@@ -81,4 +81,5 @@ class JwtRefreshTokenTest(TestCase):
         first = self.create_user()
         second = self.create_user()
         first_token = JwtRefreshToken.objects.create(user=first)
-        second_token = JwtRefreshToken.objects.create(us
+        second_token = JwtRefreshToken.objects.create(user=second)
+        first_token.token = JwtRefreshToken.ob
