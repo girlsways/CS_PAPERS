@@ -85,4 +85,7 @@ class JwtRefreshTokenTest(TestCase):
         first_token.token = JwtRefreshToken.objects.generate_token(first.pk)
         second_token.token = JwtRefreshToken.objects.generate_token(second.pk)
         with self.assertRaisesMessage(
-            TypeError, "Method disallowed. Please use refresh_token()
+            TypeError, "Method disallowed. Please use refresh_token()."
+        ):
+            JwtRefreshToken.objects.update(user=first)
+ 
