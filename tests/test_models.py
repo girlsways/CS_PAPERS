@@ -92,4 +92,7 @@ class JwtRefreshTokenTest(TestCase):
             TypeError, "Method disallowed. Please use refresh_token()."
         ):
             JwtRefreshToken.objects.update_or_create(
-                user=second, t
+                user=second, token=first_token.token
+            )
+
+    def test_is_valid_correct(self)
