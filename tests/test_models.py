@@ -95,4 +95,6 @@ class JwtRefreshTokenTest(TestCase):
                 user=second, token=first_token.token
             )
 
-    def test_is_valid_correct(self)
+    def test_is_valid_correct(self):
+        from django_graphql_jwt_flow.apps import app_settings
+       
