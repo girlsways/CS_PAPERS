@@ -99,4 +99,6 @@ class JwtRefreshTokenTest(TestCase):
         from django_graphql_jwt_flow.apps import app_settings
         from datetime import datetime, timedelta
 
-        user = self.create_us
+        user = self.create_user()
+        key = app_settings.get_key()
+        now = datetime.utcnow
