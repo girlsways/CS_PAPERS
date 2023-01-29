@@ -101,4 +101,6 @@ class JwtRefreshTokenTest(TestCase):
 
         user = self.create_user()
         key = app_settings.get_key()
-        now = datetime.utcnow
+        now = datetime.utcnow()
+        expiration = now + timedelta(seconds=300)
+     
