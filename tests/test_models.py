@@ -103,4 +103,6 @@ class JwtRefreshTokenTest(TestCase):
         key = app_settings.get_key()
         now = datetime.utcnow()
         expiration = now + timedelta(seconds=300)
-     
+        tk = JWT(
+            header={"alg": app_settings.SIGNATURE_ALG},
+    
