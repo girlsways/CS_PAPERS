@@ -108,4 +108,6 @@ class JwtRefreshTokenTest(TestCase):
             claims={"uid": str(user.pk)},
             default_claims={"iat": now.timestamp(), "exp": expiration.timestamp()},
         )
-        self.asse
+        self.assertIsNotNone(tk)
+        tk.make_signed_token(key)
+        toke
