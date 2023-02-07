@@ -106,4 +106,6 @@ class JwtRefreshTokenTest(TestCase):
         tk = JWT(
             header={"alg": app_settings.SIGNATURE_ALG},
             claims={"uid": str(user.pk)},
-            default_claims={"iat"
+            default_claims={"iat": now.timestamp(), "exp": expiration.timestamp()},
+        )
+        self.asse
