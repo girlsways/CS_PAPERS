@@ -111,4 +111,7 @@ class JwtRefreshTokenTest(TestCase):
         self.assertIsNotNone(tk)
         tk.make_signed_token(key)
         token = JwtRefreshToken(user=user, token=tk.serialize())
-        self.asse
+        self.assertTrue(token.is_valid())
+
+    def test_is_valid_signature_incorrect(self):
+  
