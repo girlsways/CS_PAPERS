@@ -115,4 +115,6 @@ class JwtRefreshTokenTest(TestCase):
 
     def test_is_valid_signature_incorrect(self):
         user = self.create_user()
-        token = JwtRefreshToken.objects.cr
+        token = JwtRefreshToken.objects.create(user=user)
+        token.token = token.token[:-4]
+        self.assertFalse(
