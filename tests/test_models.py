@@ -120,3 +120,5 @@ class JwtRefreshTokenTest(TestCase):
         self.assertFalse(token.is_valid())
 
     def test_is_valid_object_incorrect(self):
+        user = self.create_user()
+        token = JwtRefreshToken.objects.
