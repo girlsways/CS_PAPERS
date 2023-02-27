@@ -126,4 +126,5 @@ class JwtRefreshTokenTest(TestCase):
         self.assertFalse(token.is_valid())
 
     @override_settings(
-      
+        JWT_FLOW={
+            "KEY": {"kty": "oct", "k": "J5CnFlrYuU1dITmW8FkD
