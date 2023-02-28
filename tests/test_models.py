@@ -127,4 +127,7 @@ class JwtRefreshTokenTest(TestCase):
 
     @override_settings(
         JWT_FLOW={
-            "KEY": {"kty": "oct", "k": "J5CnFlrYuU1dITmW8FkD
+            "KEY": {"kty": "oct", "k": "J5CnFlrYuU1dITmW8FkDkw"},
+            "REFRESH_DAYS": 7,
+            "SIGNATURE_ALG": "HS256",
+   
