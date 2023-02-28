@@ -130,4 +130,7 @@ class JwtRefreshTokenTest(TestCase):
             "KEY": {"kty": "oct", "k": "J5CnFlrYuU1dITmW8FkDkw"},
             "REFRESH_DAYS": 7,
             "SIGNATURE_ALG": "HS256",
-   
+            "TIME_WITH_MICROSECONDS": True,
+        }
+    )
+    
