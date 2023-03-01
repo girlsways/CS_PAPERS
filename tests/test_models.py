@@ -133,4 +133,6 @@ class JwtRefreshTokenTest(TestCase):
             "TIME_WITH_MICROSECONDS": True,
         }
     )
-    
+    def test_refresh(self):
+        user = self.create_user()
+        toke
