@@ -135,4 +135,5 @@ class JwtRefreshTokenTest(TestCase):
     )
     def test_refresh(self):
         user = self.create_user()
-        toke
+        token = JwtRefreshToken.objects.create(user=user)
+        previous_token 
