@@ -138,4 +138,7 @@ class JwtRefreshTokenTest(TestCase):
         token = JwtRefreshToken.objects.create(user=user)
         previous_token = token.token
         refreshed = token.refresh()
-        self.assertN
+        self.assertNotEqual(previous_token, refreshed.token)
+
+    def test_as_string(self):
+        user = self.c
