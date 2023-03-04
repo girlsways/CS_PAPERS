@@ -143,4 +143,5 @@ class JwtRefreshTokenTest(TestCase):
     def test_as_string(self):
         user = self.create_user()
         token = JwtRefreshToken.objects.create(user=user)
-        pk = u
+        pk = user.pk
+        self.assertEqual(f"token for user with ID {pk}", str(token))
